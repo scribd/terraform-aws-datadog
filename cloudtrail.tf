@@ -82,7 +82,7 @@ resource "aws_lambda_function" "dd-log" {
   # This brings in requirements for the lambda to run (imports modules)
   # This allows the dd_log_lambda.zip to be very small https://docs.aws.amazon.com/lambda/latest/dg/configuration-layers.html
   # This specific layer is: https://github.com/DataDog/datadog-lambda-layer-python
-  layers = ["arn:aws:lambda:${var.aws_region}:${var.aws_account_id}:layer:Datadog-Python27:3"]
+  layers = ["arn:aws:lambda:${var.aws_region}:464622532012:layer:Datadog-Python27:3"]
 
   environment {
     variables = {
