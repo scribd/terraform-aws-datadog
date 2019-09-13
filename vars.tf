@@ -24,5 +24,4 @@ variable "datadog_key" {
 variable "datadog_aws_external_id" {
   description = "The External ID provided by datadog in datadog's AWS configuration page"
   type = "string"
-  default = "98eaaa12e88649709f5e3a61454fcdd5"
 }
