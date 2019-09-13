@@ -10,10 +10,12 @@ variable "aws_region" {
 variable "cloudtrail_bucket_id" {
   description = "The Cloudtrail bucket ID"
   type = "string"
+  default = ""
 }
 variable "cloudtrail_bucket_arn" {
   description = "The Cloudtrail bucket ID"
   type = "string"
+  default = ""
 }
 variable "datadog_key" {
   description = "The API key for the datadog integration"
