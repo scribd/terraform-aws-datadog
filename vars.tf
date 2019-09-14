@@ -21,7 +21,7 @@ variable "datadog_key" {
   description = "The API key for the datadog integration"
   type = "string"
 }
-variable "datadog_aws_external_id" {
+variable "datadog_external_id" {
   description = "The External ID provided by datadog in datadog's AWS configuration page"
   type = "string"
 }
