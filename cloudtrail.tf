@@ -86,7 +86,7 @@ resource "aws_lambda_function" "dd-log" {
 
   environment {
     variables = {
-      DD_API_KEY = var.datadog_key
+      DD_API_KEY = var.datadog_api_key
     }
   }
 }

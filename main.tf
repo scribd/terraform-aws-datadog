@@ -2,6 +2,12 @@
 ## This tf file will enable datadog integration on scribd-master account
 ##
 
+resource "datadog_integration_aws" "core" {
+  account_id = var.aws_account_id
+  role_name = "datadog-integration-role"
+  host_tags = ["Namespace:${var.namespace}"]
+}
+
 resource "aws_iam_role" "datadog-integration" {
   name = "datadog-integration-role"
 
@@ -17,7 +23,7 @@ resource "aws_iam_role" "datadog-integration" {
       "Action": "sts:AssumeRole",
       "Condition": {
         "StringEquals": {
-          "sts:ExternalId": "${var.datadog_external_id}"
+          "sts:ExternalId": "${datadog_integration_aws.core.external_id}"
         }
       }
     }
@@ -120,3 +126,4 @@ resource "aws_iam_role_policy_attachment" "datadog-core-attach" {
   role       = "${aws_iam_role.datadog-integration.name}"
   policy_arn = "${aws_iam_policy.datadog-core.arn}"
 }
+

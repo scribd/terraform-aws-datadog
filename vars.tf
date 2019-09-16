@@ -8,20 +8,22 @@ variable "aws_region" {
   default = "us-east-2"
 }
 variable "cloudtrail_bucket_id" {
-  description = "The Cloudtrail bucket ID"
+  description = "The Cloudtrail bucket ID. Use only from org master account."
   type = "string"
   default = ""
 }
 variable "cloudtrail_bucket_arn" {
-  description = "The Cloudtrail bucket ID"
+  description = "The Cloudtrail bucket ID. Use only from org master account"
   type = "string"
   default = ""
 }
-variable "datadog_key" {
-  description = "The API key for the datadog integration"
+variable "datadog_api_key" {
+  description = "The API key for the datadog integration. Use only from org master account"
   type = "string"
+  default = ""
 }
-variable "datadog_external_id" {
-  description = "The External ID provided by datadog in datadog's AWS configuration page"
+variable "namespace" {
+  description = "The namespace tag to apply to all hosts in the integration"
   type = "string"
+  default = "test"
 }
