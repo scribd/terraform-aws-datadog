@@ -5,7 +5,10 @@
 resource "datadog_integration_aws" "core" {
   account_id = var.aws_account_id
   role_name = "datadog-integration-role"
-  host_tags = ["Namespace:${var.namespace}"]
+  host_tags = [
+    "Namespace:${var.namespace}",
+    "env:${var.namespace}"
+  ]
 }
 
 resource "aws_iam_role" "datadog-integration" {
