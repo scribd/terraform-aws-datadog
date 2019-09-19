@@ -10,7 +10,7 @@ resource "aws_lambda_permission" "allow-elblog-trigger" {
 
 # Tell S3 bucket to invoke DD lambda once an object is created/modified
 resource "aws_s3_bucket_notification" "elblog-notification-dd-log" {
-  bucket = aws_s3_bucket.elb_logs.arn
+  bucket = aws_s3_bucket.elb_logs.id
 
   lambda_function {
     lambda_function_arn = "${aws_lambda_function.dd-log.arn}"
