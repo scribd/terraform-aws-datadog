@@ -2,7 +2,7 @@
 # Make lambda function accept invokes from S3
 resource "aws_lambda_permission" "allow-ctbucket-trigger" {
   count  = "${var.cloudtrail_bucket_id != "" ? 1 : 0}"
-  statement_id  = "AllowExecutionFromS3Bucket"
+  statement_id  = "AllowExecutionFromCTBucket"
   action        = "lambda:InvokeFunction"
   function_name = "${aws_lambda_function.dd-log.arn}"
   principal     = "s3.amazonaws.com"

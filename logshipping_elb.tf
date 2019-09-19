@@ -1,7 +1,7 @@
 
 # Make lambda function accept invokes from S3
 resource "aws_lambda_permission" "allow-elblog-trigger" {
-  statement_id  = "AllowExecutionFromS3Bucket"
+  statement_id  = "AllowExecutionFromELBLogBucket"
   action        = "lambda:InvokeFunction"
   function_name = "${aws_lambda_function.dd-log.arn}"
   principal     = "s3.amazonaws.com"
