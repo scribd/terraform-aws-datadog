@@ -1,9 +1,7 @@
-
-resource "aws_iam_policy" "datadog-cloudtrail" {
-  count       = "${var.cloudtrail_bucket_id != "" ? 1 : 0}"
-  name        = "datadog-cloudtrail-integration"
+resource "aws_iam_policy" "datadog-logshipping" {
+  name        = "datadog-logshipping-integration"
   path        = "/"
-  description = "This IAM policy allows for cloudtrail datadog integration permissions"
+  description = "This IAM policy allows for logshipping aws logs"
 
   policy = <<EOF
 {
@@ -17,10 +15,7 @@ resource "aws_iam_policy" "datadog-cloudtrail" {
               "cloudtrail:DescribeTrails",
               "cloudtrail:GetTrailStatus"
           ],
-          "Resource": [
-              "arn:aws:s3:::${var.cloudtrail_bucket_id}",
-              "arn:aws:s3:::${var.cloudtrail_bucket_id}/*"
-          ],
+          "Resource": "*",
           "Effect": "Allow"
         }
     ]
@@ -28,15 +23,13 @@ resource "aws_iam_policy" "datadog-cloudtrail" {
 EOF
 }
 
-resource "aws_iam_role_policy_attachment" "datadog-cloudtrail-attach" {
-  count      = "${var.cloudtrail_bucket_id != "" ? 1 : 0}"
+resource "aws_iam_role_policy_attachment" "datadog-logshipping-attach" {
   role       = "${aws_iam_role.datadog-integration.name}"
-  policy_arn = "${aws_iam_policy.datadog-cloudtrail[count.index].arn}"
+  policy_arn = "${aws_iam_policy.datadog-logshipping.arn}"
 }
 
 # Create a lambda function that will export CT logs to DD
 resource "aws_iam_role" "dd-log-lambda" {
-  count = "${var.cloudtrail_bucket_id != "" ? 1 : 0}"
   name  = "dd_log_lambda"
 
   assume_role_policy = <<EOF
@@ -56,17 +49,15 @@ resource "aws_iam_role" "dd-log-lambda" {
 EOF
 }
 
-resource "aws_iam_role_policy_attachment" "datadog-cloudtrail-lambda-attach" {
-  count      = "${var.cloudtrail_bucket_id != "" ? 1 : 0}"
-  role       = "${aws_iam_role.dd-log-lambda[count.index].name}"
-  policy_arn = "${aws_iam_policy.datadog-cloudtrail[count.index].arn}"
+resource "aws_iam_role_policy_attachment" "datadog-logshipping-lambda-attach" {
+  role       = "${aws_iam_role.dd-log-lambda.name}"
+  policy_arn = "${aws_iam_policy.datadog-logshipping.arn}"
 }
 
 resource "aws_lambda_function" "dd-log" {
-  count         = "${var.cloudtrail_bucket_id != "" ? 1 : 0}"
   filename      = "files/dd_log_lambda.zip"
   function_name = "DatadogLambdaFunction"
-  role          = "${aws_iam_role.dd-log-lambda[count.index].arn}"
+  role          = "${aws_iam_role.dd-log-lambda.arn}"
   handler       = "lambda_function.lambda_handler"
   description   = "This lambda function will export logs to our orgs Datadog events"
 
@@ -88,26 +79,5 @@ resource "aws_lambda_function" "dd-log" {
     variables = {
       DD_API_KEY = var.datadog_api_key
     }
-  }
-}
-
-# Make lambda function accept invokes from S3
-resource "aws_lambda_permission" "allow-ctbucket-trigger" {
-  count         = "${var.cloudtrail_bucket_id != "" ? 1 : 0}"
-  statement_id  = "AllowExecutionFromS3Bucket"
-  action        = "lambda:InvokeFunction"
-  function_name = "${aws_lambda_function.dd-log[count.index].arn}"
-  principal     = "s3.amazonaws.com"
-  source_arn    = "${var.cloudtrail_bucket_arn}"
-}
-
-# Tell S3 bucket to invoke DD lambda once an object is created/modified
-resource "aws_s3_bucket_notification" "bucket-notification-dd-log" {
-  count  = "${var.cloudtrail_bucket_id != "" ? 1 : 0}"
-  bucket = "${var.cloudtrail_bucket_id}"
-
-  lambda_function {
-    lambda_function_arn = "${aws_lambda_function.dd-log[count.index].arn}"
-    events              = ["s3:ObjectCreated:*"]
   }
 }
