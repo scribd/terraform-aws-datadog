@@ -1,7 +1,7 @@
 resource "aws_iam_policy" "datadog-logshipping" {
   name        = "datadog-logshipping-integration"
   path        = "/"
-  description = "This IAM policy allows for logshipping aws logs"
+  description = "This IAM policy allows for logshipping aws logs. See https://docs.datadoghq.com/integrations/amazon_web_services/?tab=allpermissions#manually-setup-triggers"
 
   policy = <<EOF
 {
@@ -9,11 +9,23 @@ resource "aws_iam_policy" "datadog-logshipping" {
     "Statement": [
         {
           "Action": [
-              "s3:List*",
-              "s3:Get*",
-              "s3:Describe*",
-              "cloudtrail:DescribeTrails",
-              "cloudtrail:GetTrailStatus"
+            "cloudfront:GetDistributionConfig",
+            "cloudfront:ListDistributions",
+            "elasticloadbalancing:DescribeLoadBalancers",
+            "elasticloadbalancing:DescribeLoadBalancerAttributes",
+            "lambda:AddPermission",
+            "lambda:GetPolicy",
+            "lambda:RemovePermission",
+            "redshift:DescribeClusters",
+            "redshift:DescribeLoggingStatus",
+            "s3:GetBucketLogging",
+            "s3:GetBucketLocation",
+            "s3:GetBucketNotification",
+            "s3:ListAllMyBuckets",
+            "s3:PutBucketNotification",
+            "logs:PutSubscriptionFilter",
+            "logs:DeleteSubscriptionFilter",
+            "logs:DescribeSubscriptionFilters"
           ],
           "Resource": "*",
           "Effect": "Allow"
@@ -21,11 +33,6 @@ resource "aws_iam_policy" "datadog-logshipping" {
     ]
 }
 EOF
-}
-
-resource "aws_iam_role_policy_attachment" "datadog-logshipping-attach" {
-  role       = "${aws_iam_role.datadog-integration.name}"
-  policy_arn = "${aws_iam_policy.datadog-logshipping.arn}"
 }
 
 # Create a lambda function that will export CT logs to DD
