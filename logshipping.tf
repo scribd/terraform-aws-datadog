@@ -61,6 +61,11 @@ resource "aws_iam_role_policy_attachment" "datadog-logshipping-lambda-attach" {
   policy_arn = "${aws_iam_policy.datadog-logshipping.arn}"
 }
 
+resource "aws_iam_role_policy_attachment" "datadog-logshipping-lambda-attach2" {
+  role       = "${aws_iam_role.dd-log-lambda.name}"
+  policy_arn = "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+}
+
 resource "aws_lambda_function" "dd-log" {
   filename      = "${path.module}/files/dd_log_lambda.zip"
   function_name = "DatadogLambdaFunction"
