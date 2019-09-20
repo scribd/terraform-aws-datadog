@@ -18,9 +18,8 @@ variable "cloudtrail_bucket_arn" {
   default = ""
 }
 variable "datadog_api_key" {
-  description = "The API key for the datadog integration. Use only from org master account"
+  description = "The API key for the datadog integration."
   type = "string"
-  default = ""
 }
 variable "namespace" {
   description = "The namespace tag to apply to all hosts in the integration"
