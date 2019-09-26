@@ -4,6 +4,7 @@ This module configures the AWS / Datadog integration.
 
 - Can configure cloudtrail logshipping
 - Can create elb s3 bucket for logs and logshipping
+- Can sync cloudwatch logs for a given list of log groups
 
 
 ## Usage

@@ -26,3 +26,13 @@ variable "namespace" {
   type = "string"
   default = "test"
 }
+variable "create_elb_logs_bucket" {
+  description = "Create S3 bucket for ELB log sync"
+  default = true
+  type = bool
+}
+variable "cloudwatch_log_groups" {
+  description = "Sync logs from cloudwatch by given list of log groups"
+  type = list(string)
+  default = []
+}
