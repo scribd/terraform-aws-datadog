@@ -31,3 +31,16 @@ module "datadog" {
   aws_account_id      = var.aws_account_id
 }
 ```
+
+**Limit to only cloudwatch log sync**
+
+```
+module "datadog" {
+  source = "../modules/datadog"
+
+  aws_account_id      = var.aws_account_id
+  create_elb_logs_bucket         = false
+  enable_datadog_aws_integration = false
+  cloudwatch_log_groups          = ["cloudwatch_log_group_1", "cloudwatch_log_group_2"]
+}
+```

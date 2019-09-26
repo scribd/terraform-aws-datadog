@@ -3,6 +3,7 @@
 ##
 
 resource "datadog_integration_aws" "core" {
+  count = var.enable_datadog_aws_integration ? 1 : 0
   account_id = var.aws_account_id
   role_name = "datadog-integration-role"
   host_tags = [
@@ -12,6 +13,7 @@ resource "datadog_integration_aws" "core" {
 }
 
 resource "aws_iam_role" "datadog-integration" {
+  count = var.enable_datadog_aws_integration ? 1 : 0
   name = "datadog-integration-role"
 
   assume_role_policy = <<EOF
@@ -26,7 +28,7 @@ resource "aws_iam_role" "datadog-integration" {
       "Action": "sts:AssumeRole",
       "Condition": {
         "StringEquals": {
-          "sts:ExternalId": "${datadog_integration_aws.core.external_id}"
+          "sts:ExternalId": "${datadog_integration_aws.core[0].external_id}"
         }
       }
     }
@@ -41,6 +43,7 @@ EOF
 }
 
 resource "aws_iam_policy" "datadog-core" {
+  count = var.enable_datadog_aws_integration ? 1 : 0
   name        = "datadog-core-integration"
   path        = "/"
   description = "This IAM policy allows for core datadog integration permissions"
@@ -126,6 +129,7 @@ EOF
 }
 
 resource "aws_iam_role_policy_attachment" "datadog-core-attach" {
-  role       = "${aws_iam_role.datadog-integration.name}"
-  policy_arn = "${aws_iam_policy.datadog-core.arn}"
+  count = var.enable_datadog_aws_integration ? 1 : 0
+  role       = "${aws_iam_role.datadog-integration[0].name}"
+  policy_arn = "${aws_iam_policy.datadog-core[0].arn}"
 }
