@@ -1,5 +1,5 @@
 resource "aws_iam_policy" "datadog-logshipping" {
-  name        = "datadog-logshipping-integration"
+  name        = "${local.stack_uid}-datadog-logshipping-integration"
   path        = "/"
   description = "This IAM policy allows for logshipping aws logs. See https://docs.datadoghq.com/integrations/amazon_web_services/?tab=allpermissions#manually-setup-triggers"
 
@@ -38,7 +38,7 @@ EOF
 
 # Create a lambda function that will export CT logs to DD
 resource "aws_iam_role" "dd-log-lambda" {
-  name  = "dd_log_lambda"
+  name  = "${local.stack_uid}-dd_log_lambda"
 
   assume_role_policy = <<EOF
 {
@@ -73,7 +73,7 @@ resource "aws_iam_role_policy_attachment" "datadog-logshipping-lambda-attach3" {
 }
 resource "aws_lambda_function" "dd-log" {
   filename      = "${path.module}/files/dd_log_lambda.zip"
-  function_name = "${var.namespace}_DatadogLambdaFunction"
+  function_name = "${local.stack_uid}_DatadogLambdaFunction"
   role          = "${aws_iam_role.dd-log-lambda.arn}"
   handler       = "lambda_function.lambda_handler"
   description   = "This lambda function will export logs to our orgs Datadog events"
