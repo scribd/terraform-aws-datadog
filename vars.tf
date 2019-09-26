@@ -42,7 +42,12 @@ variable "enable_datadog_aws_integration" {
   default = true
 }
 variable "env" {
-  descripton = "The env tag to apply to all hosts in the integration"
-  type string
+  description = "The env tag to apply to all hosts in the integration"
+  type = string
   default = ""
+}
+variable "account_specific_namespace_rules" {
+  description = "account_specific_namespace_rules argument for datadog_integration_aws resource"
+  type = map
+  default = {}
 }

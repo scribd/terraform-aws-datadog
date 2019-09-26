@@ -10,6 +10,7 @@ resource "datadog_integration_aws" "core" {
     "Namespace:${var.namespace}",
     "env:${local.env}"
   ]
+  account_specific_namespace_rules = var.account_specific_namespace_rules
 }
 
 resource "aws_iam_role" "datadog-integration" {
