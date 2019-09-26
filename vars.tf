@@ -41,3 +41,8 @@ variable "enable_datadog_aws_integration" {
   type = bool
   default = true
 }
+variable "env" {
+  descripton = "The env tag to apply to all hosts in the integration"
+  type string
+  default = ""
+}

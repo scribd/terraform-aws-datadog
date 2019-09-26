@@ -8,7 +8,7 @@ resource "datadog_integration_aws" "core" {
   role_name = "datadog-integration-role"
   host_tags = [
     "Namespace:${var.namespace}",
-    "env:${var.namespace}"
+    "env:${local.env}"
   ]
 }
 
