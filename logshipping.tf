@@ -73,7 +73,7 @@ resource "aws_iam_role_policy_attachment" "datadog-logshipping-lambda-attach3" {
 }
 resource "aws_lambda_function" "dd-log" {
   filename      = "${path.module}/files/dd_log_lambda.zip"
-  function_name = "DatadogLambdaFunction"
+  function_name = "${var.namespace}_DatadogLambdaFunction"
   role          = "${aws_iam_role.dd-log-lambda.arn}"
   handler       = "lambda_function.lambda_handler"
   description   = "This lambda function will export logs to our orgs Datadog events"
