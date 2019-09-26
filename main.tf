@@ -37,10 +37,9 @@ resource "aws_iam_role" "datadog-integration" {
 }
 EOF
 
-  tags = {
+  tags = merge(local.default_tags, {
     description = "This role allows the datadog AWS account to access this account for metrics collection"
-    terraform   = "true"
-  }
+  })
 }
 
 resource "aws_iam_policy" "datadog-core" {

@@ -38,7 +38,7 @@ EOF
 
 # Create a lambda function that will export CT logs to DD
 resource "aws_iam_role" "dd-log-lambda" {
-  name  = "${local.stack_uid}-dd_log_lambda"
+  name = "${local.stack_uid}-dd_log_lambda"
 
   assume_role_policy = <<EOF
 {
@@ -55,6 +55,8 @@ resource "aws_iam_role" "dd-log-lambda" {
   ]
 }
 EOF
+
+  tags = local.default_tags
 }
 
 resource "aws_iam_role_policy_attachment" "datadog-logshipping-lambda-attach" {
