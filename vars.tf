@@ -22,9 +22,9 @@ variable "datadog_api_key" {
   type = "string"
 }
 variable "namespace" {
-  description = "The namespace tag to apply to all hosts in the integration"
+  description = "The namespace tag to apply to all data sent to datadog"
   type = "string"
-  default = "test"
+  default = ""
 }
 variable "create_elb_logs_bucket" {
   description = "Create S3 bucket for ELB log sync"
@@ -42,7 +42,7 @@ variable "enable_datadog_aws_integration" {
   default = true
 }
 variable "env" {
-  description = "The env tag to apply to all hosts in the integration"
+  description = "The env tag to apply to all data sent to datadog"
   type = string
   default = ""
 }

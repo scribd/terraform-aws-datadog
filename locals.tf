@@ -1,10 +1,10 @@
 locals {
   # default to namespace for backwards compatibility
-  env       = var.env == "" ? var.namespace : var.env
-  stack_uid = "${var.namespace}-${var.env}"
+  pre_stack_prefix = "${var.namespace}-${var.env}-"
+  stack_prefix = local.pre_stack_prefix == "${var.namespace}--" ? "" : local.pre_stack_prefix
 
   default_tags = {
-    env       = local.env
+    env       = var.env
     namespace = var.namespace
     terraform = "true"
   }
