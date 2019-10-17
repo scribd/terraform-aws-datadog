@@ -56,21 +56,21 @@ POLICY
   }
 
   lifecycle_rule {
-    id      = "log"
+    id = "log"
     enabled = true
 
     tags = {
-      "rule"      = "log"
+      "rule" = "log"
       "autoclean" = "true"
     }
 
     transition {
-      days          = 30
+      days = 30
       storage_class = "STANDARD_IA" # or "ONEZONE_IA"
     }
 
     transition {
-      days          = 60
+      days = 60
       storage_class = "GLACIER"
     }
 

@@ -3,9 +3,9 @@
 ##
 
 resource "datadog_integration_aws" "core" {
-  count = var.enable_datadog_aws_integration ? 1 : 0
+  count      = var.enable_datadog_aws_integration ? 1 : 0
   account_id = var.aws_account_id
-  role_name = "datadog-integration-role"
+  role_name  = "datadog-integration-role"
   host_tags = [
     "Namespace:${var.namespace}",
     "env:${var.env}"
@@ -15,7 +15,7 @@ resource "datadog_integration_aws" "core" {
 
 resource "aws_iam_role" "datadog-integration" {
   count = var.enable_datadog_aws_integration ? 1 : 0
-  name = "datadog-integration-role"
+  name  = "datadog-integration-role"
 
   assume_role_policy = <<EOF
 {
@@ -44,8 +44,8 @@ EOF
 
 resource "aws_iam_policy" "datadog-core" {
   count = var.enable_datadog_aws_integration ? 1 : 0
-  name        = "datadog-core-integration"
-  path        = "/"
+  name = "datadog-core-integration"
+  path = "/"
   description = "This IAM policy allows for core datadog integration permissions"
 
   policy = <<EOF
@@ -129,7 +129,7 @@ EOF
 }
 
 resource "aws_iam_role_policy_attachment" "datadog-core-attach" {
-  count = var.enable_datadog_aws_integration ? 1 : 0
+  count      = var.enable_datadog_aws_integration ? 1 : 0
   role       = "${aws_iam_role.datadog-integration[0].name}"
   policy_arn = "${aws_iam_policy.datadog-core[0].arn}"
 }
