@@ -43,8 +43,8 @@ changelog:
     name: registry.gitlab.com/juhani/go-semrel-gitlab:v0.21.1
     entrypoint: [""]
   script:
-    - release --bump-patch changelog --list-other-changes
-    - release --bump-patch --skip-ssl-verify commit-and-tag --list-other-changes CHANGELOG.md
+    - release --bump-patch changelog
+    - release --bump-patch --skip-ssl-verify commit-and-tag CHANGELOG.md
   only:
     - master
 
