@@ -43,9 +43,9 @@ EOF
 }
 
 resource "aws_iam_policy" "datadog-core" {
-  count = var.enable_datadog_aws_integration ? 1 : 0
-  name = "datadog-core-integration"
-  path = "/"
+  count       = var.enable_datadog_aws_integration ? 1 : 0
+  name        = "datadog-core-integration"
+  path        = "/"
   description = "This IAM policy allows for core datadog integration permissions"
 
   policy = <<EOF
