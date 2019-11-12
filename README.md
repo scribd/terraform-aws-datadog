@@ -1,4 +1,4 @@
-# datadog
+# terraform-aws-datadog
 
 This module configures the AWS / Datadog integration.
 
