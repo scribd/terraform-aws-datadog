@@ -45,3 +45,27 @@ module "datadog" {
   cloudwatch_log_groups          = ["cloudwatch_log_group_1", "cloudwatch_log_group_2"]
 }
 ```
+
+## Cutting a release
+
+Releases are cut using [go-semrel-gitlab](https://gitlab.com/juhani/go-semrel-gitlab)
+Format commit messages to determine the next version bump and to produce release notes
+
+```
+type(scope): subject
+```
+or
+
+```
+type: subject
+```
+
+Types:
+```
+minor bump: feat
+patch bump: fix,refactor,perf,docs,style,tes
+```
+
+When a commit contains a breaking change, 
+the commit message should contain `BREAKING CHANGE:` 
+to trigger a major version bump.

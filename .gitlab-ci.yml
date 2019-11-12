@@ -1,9 +1,14 @@
 stages:
   - test
+  - release
   - notifications
 
 variables:
   GIT_STRATEGY: clone
+
+##
+# Stage: test
+#
 
 .test: &test
   stage: test
@@ -11,9 +16,6 @@ variables:
     - docker
   script: "terraform fmt -check -diff -recursive && terraform init -input=false"
 
-##
-# Stage: test
-#
 0.12.13:
   <<: *test
   image:
@@ -30,6 +32,22 @@ variables:
     name: hashicorp/terraform:0.12.11
     entrypoint: [""]
 
+##
+# Stage: release
+
+changelog:
+  stage: release
+  tags:
+    - docker
+  image:
+    name: registry.gitlab.com/juhani/go-semrel-gitlab:v0.21.1
+    entrypoint: [""]
+  script:
+    - release changelog
+    - release --skip-ssl-verify commit-and-tag CHANGELOG.md
+  when: manual
+  only:
+    - master
 
 ##
 # Stage: notifications
