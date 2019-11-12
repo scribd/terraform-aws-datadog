@@ -13,7 +13,8 @@ This module configures the AWS / Datadog integration.
 
 ```
 module "datadog" {
-  source = "../modules/datadog"
+  source = "git::ssh://git@git.lo/terraform/terraform-aws-datadog?ref=master"
+
 
   aws_account_id        = data.aws_caller_identity.current.account_id
   cloudtrail_bucket_id  = aws_s3_bucket.org-cloudtrail-bucket.id
@@ -26,7 +27,7 @@ module "datadog" {
 
 ```
 module "datadog" {
-  source = "../modules/datadog"
+  source = "git::ssh://git@git.lo/terraform/terraform-aws-datadog?ref=master"
 
   aws_account_id      = var.aws_account_id
 }
@@ -36,9 +37,9 @@ module "datadog" {
 
 ```
 module "datadog" {
-  source = "../modules/datadog"
+  source = "git::ssh://git@git.lo/terraform/terraform-aws-datadog?ref=master"
 
-  aws_account_id      = var.aws_account_id
+  aws_account_id                 = var.aws_account_id
   create_elb_logs_bucket         = false
   enable_datadog_aws_integration = false
   cloudwatch_log_groups          = ["cloudwatch_log_group_1", "cloudwatch_log_group_2"]
