@@ -9,6 +9,17 @@
 
 - test release (958cbb2d78c806cf38c7f913e0039c80285f74e3)
 
+### Fixes
+
+- next semver shouldnot collide (a4a84748e5037c49f98f9675856747eb579dd8d4)
+
+## 0.1.0
+2019-11-12
+
+### Features
+
+- test release (958cbb2d78c806cf38c7f913e0039c80285f74e3)
+
 ## 0.1.0
 2019-11-12
 
