@@ -1,0 +1,75 @@
+stages:
+  - test
+  - notifications
+
+.init: &init
+  stage: test
+  tags:
+    - docker
+  script: "init -input=false"
+
+.format: &format
+  stage: test
+  tags:
+    - docker
+  script: "fmt -check -diff -recursive"
+
+.validate: &validate
+  stage: test
+  tags:
+    - docker
+  script: "validate"
+
+0.12.13-init:
+  <<: *init
+  image: hashicorp/terraform:0.12.13
+0.12.13-format:
+  <<: *format
+  image: hashicorp/terraform:0.12.13
+0.12.13-validate:
+  <<: *validate
+  image: hashicorp/terraform:0.12.13
+0.12.12-init:
+  <<: *init
+  image: hashicorp/terraform:0.12.12
+0.12.12-format:
+  <<: *format
+  image: hashicorp/terraform:0.12.12
+0.12.12-validate:
+  <<: *validate
+  image: hashicorp/terraform:0.12.12
+0.12.11-init:
+  <<: *init
+  image: hashicorp/terraform:0.12.11
+0.12.11-format:
+  <<: *format
+  image: hashicorp/terraform:0.12.11
+0.12.11-validate:
+  <<: *validate
+  image: hashicorp/terraform:0.12.11
+
+
+##
+# Stage: notifications
+
+# notifies both Slack and ops.lo build events
+notify_slack_failure:
+  stage: notifications
+  when: on_failure
+  except:
+    - tags
+  dependencies: []
+  before_script: []
+  script:
+    - /opt/scribd/bin/build_notifier.rb failed
+
+notify_slack_success:
+  stage: notifications
+  when: on_success
+  except:
+    - tags
+  dependencies: []
+  before_script: []
+  script:
+    - /opt/scribd/bin/build_notifier.rb success
+
