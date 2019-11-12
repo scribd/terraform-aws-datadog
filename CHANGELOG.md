@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.1.2
+2019-11-12
+
+### Fixes
+
+- Donut include other changes (082bc09759413c01470ac6e739a7f3689c794c5f)
+
 ## 0.1.0
 2019-11-12
 
