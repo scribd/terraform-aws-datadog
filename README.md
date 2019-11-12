@@ -66,6 +66,4 @@ minor bump: feat
 patch bump: fix,refactor,perf,docs,style,tes
 ```
 
-When a commit contains a breaking change, 
-the commit message should contain `BREAKING CHANGE:` 
-to trigger a major version bump.
+When a commit contains a breaking change, the commit message should contain `BREAKING CHANGE:`
