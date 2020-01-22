@@ -2,6 +2,14 @@
 
 <!--- next entry here -->
 
+## 0.1.3
+2020-01-22
+
+### Fixes
+
+- Merge branch 'sai/fix-lambda-permission-statement' into 'master' (6cabdf9ad640226ea1bec3124b2e14628d2521ac)
+- Fix invalid statement id for lambda permission (96eef8276f3a38d7775693e0025d1478cd347971)
+
 ## 0.1.2
 2019-11-12
 
