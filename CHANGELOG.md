@@ -2,6 +2,14 @@
 
 <!--- next entry here -->
 
+## 0.1.4
+2020-01-22
+
+### Fixes
+
+- Merge branch 'sai/add-tags-to-dd-logs' into 'master' (31254522b0f93290e51ba685de1681e711cc351c)
+- add namespace and env to DD logs (87baf8fdb541316a1545b2adf00cfa44348820ab)
+
 ## 0.1.3
 2020-01-22
 
