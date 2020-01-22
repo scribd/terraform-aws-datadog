@@ -9,7 +9,7 @@ resource "aws_cloudwatch_log_subscription_filter" "test_lambdafunction_logfilter
 
 resource aws_lambda_permission "allow_cloudwatch_logs_to_call_dd_lambda_handler" {
   count         = length(var.cloudwatch_log_groups)
-  statement_id  = "${var.cloudwatch_log_groups[count.index]}-AllowExecutionFromCloudWatchLogs"
+  statement_id  = "${replace(var.cloudwatch_log_groups[count.index], "/", "_")}-AllowExecutionFromCloudWatchLogs"
   action        = "lambda:InvokeFunction"
   function_name = aws_lambda_function.dd-log.function_name
   principal     = "logs.${var.aws_region}.amazonaws.com"
