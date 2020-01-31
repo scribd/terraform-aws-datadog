@@ -31,11 +31,6 @@ variable "create_elb_logs_bucket" {
   default     = true
   type        = bool
 }
-variable "create_scribd_logs_bucket" {
-  description = "Create S3 bucket for scribd (monolith) logs"
-  default     = false
-  type        = bool
-}
 variable "cloudwatch_log_groups" {
   description = "Sync logs from cloudwatch by given list of log groups"
   type        = list(string)
