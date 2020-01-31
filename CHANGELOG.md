@@ -2,6 +2,15 @@
 
 <!--- next entry here -->
 
+## 0.1.5
+2020-01-31
+
+### Fixes
+
+- TOOLS-1197 Create S3 bucket to archive scribd logs ingested by Datadog (62eb79d0ed9e0f8689397590d62b6668af6c38d8)
+- Remove creation of S3 bucket and instead output Datadog's iam role (to be used by the module caller to create S3 bucket and set permissions) (037e726c4024ae33bf68254c25f2d399483b3c9c)
+- Merge branch 'kamranf/TOOLS-1197' into 'master' (b4d8f24ead8b716f728a8f430ebac849232ac398)
+
 ## 0.1.4
 2020-01-22
 
