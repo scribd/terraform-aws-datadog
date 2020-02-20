@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.1.7
+2020-02-20
+
+### Fixes
+
+- Update README.md (e7c04781e006af3932a9b9720e855fb08f7102b0)
+
 ## 0.1.6
 2020-02-20
 
