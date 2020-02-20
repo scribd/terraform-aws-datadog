@@ -12,6 +12,11 @@ This module configures the AWS / Datadog integration.
 **Org Master With CloudTrail**
 
 ```
+provider "datadog" {
+  api_key = var.datadog_api_key
+  app_key = var.datadog_app_key
+}
+
 module "datadog" {
   source = "git::ssh://git@git.lo/terraform/terraform-aws-datadog?ref=master"
 
@@ -26,6 +31,11 @@ module "datadog" {
 **Normal**
 
 ```
+provider "datadog" {
+  api_key = var.datadog_api_key
+  app_key = var.datadog_app_key
+}
+
 module "datadog" {
   source = "git::ssh://git@git.lo/terraform/terraform-aws-datadog?ref=master"
 
@@ -36,6 +46,11 @@ module "datadog" {
 **Limit to only cloudwatch log sync**
 
 ```
+provider "datadog" {
+  api_key = var.datadog_api_key
+  app_key = var.datadog_app_key
+}
+
 module "datadog" {
   source = "git::ssh://git@git.lo/terraform/terraform-aws-datadog?ref=master"
 
