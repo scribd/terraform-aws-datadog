@@ -99,4 +99,8 @@ When a commit contains a breaking change, the commit message should contain `BRE
   -  Pull: Communicate the change to a public channel to facilitate people updating their versions.
   -  Future TODO: Publish these releases to a public registry so that consumers can [automatically follow releases according to SemVer rules](https://www.terraform.io/docs/configuration/modules.html#module-versions). 
   
+## Troubleshooting
+
+If you should encounter `Datadog is not authorized to perform action sts:AssumeRole Accounts affected: 754595446877, 228539533740 Regions affected: every region Errors began reporting 18m ago, last seen 5m ago`
+Then perhaps the external ID has changed. Execute `./terraform taint module.datadog.datadog_integration_aws.core[0]` in the root module of the account repo
   
