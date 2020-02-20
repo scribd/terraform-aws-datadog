@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.1.9
+2020-02-20
+
+### Fixes
+
+- doc: add provider config (f69f121fc488f03416aa60063edccadbd5af3efc)
+
 ## 0.1.8
 2020-02-20
 
