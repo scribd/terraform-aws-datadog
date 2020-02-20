@@ -46,10 +46,11 @@ module "datadog" {
 }
 ```
 
-## Cutting a release
+## Development
 
 Releases are cut using [go-semrel-gitlab](https://gitlab.com/juhani/go-semrel-gitlab)
-Format commit messages to determine the next version bump and to produce release notes
+
+Format commit messages using [Conventional Commits format](https://www.conventionalcommits.org/en/v1.0.0-beta.2/) to determine the next version bump and to produce release notes
 
 ```
 type(scope): subject
@@ -67,3 +68,12 @@ patch bump: fix,refactor,perf,docs,style,tes
 ```
 
 When a commit contains a breaking change, the commit message should contain `BREAKING CHANGE:`
+
+## Cutting a release
+
+- Merge into master 
+- Watch the pipeline, or not.
+- You have two methods for convergence of the release across the organization. 
+  -  Push: `source = "git::ssh://git@git.lo/terraform/terraform-aws-datadog?ref=` amongst all git.lo/terraform repos. I have a [checkout of all projects](https://git.lo/jimp/jimtools/blob/master/update_all.sh) in this group to facilitate do this using ripgrep. Make an MR and communicate the changes + MR
+  -  Pull: Communicate the change to a public channel to facilitate people updating their versions.
+  -  Future TODO: Publish these releases to a public registry so that consumers can [automatically follow releases according to SemVer rules](https://www.terraform.io/docs/configuration/modules.html#module-versions). 
