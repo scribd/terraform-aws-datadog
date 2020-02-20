@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.1.10
+2020-02-20
+
+### Fixes
+
+- doc: add troubleshooting steps (f46d6f1e827d3063857f8088909e327c19a7ac4c)
+
 ## 0.1.9
 2020-02-20
 
