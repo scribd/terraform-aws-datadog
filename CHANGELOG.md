@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.1.8
+2020-02-20
+
+### Fixes
+
+- chore: :tada: add QP as maintainer (2ff7ee522f01f8dc7ea9ffb1b2a822fe9f74204e)
+
 ## 0.1.7
 2020-02-20
 
