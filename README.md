@@ -74,6 +74,6 @@ When a commit contains a breaking change, the commit message should contain `BRE
 - Merge into master 
 - Watch the pipeline, or not.
 - You have two methods for convergence of the release across the organization. 
-  -  Push: `source = "git::ssh://git@git.lo/terraform/terraform-aws-datadog?ref=` amongst all git.lo/terraform repos. I have a [checkout of all projects](https://git.lo/jimp/jimtools/blob/master/update_all.sh) in this group to facilitate do this using ripgrep. Make an MR and communicate the changes + MR
+  -  Push: Search for `source = "git::ssh://git@git.lo/terraform/terraform-aws-datadog?ref=` amongst all git.lo/terraform repos. I have a [checkout of all projects](https://git.lo/jimp/jimtools/blob/master/update_all.sh) in this group to facilitate doing this using ripgrep. Make an MR and communicate the changes + MR
   -  Pull: Communicate the change to a public channel to facilitate people updating their versions.
   -  Future TODO: Publish these releases to a public registry so that consumers can [automatically follow releases according to SemVer rules](https://www.terraform.io/docs/configuration/modules.html#module-versions). 
