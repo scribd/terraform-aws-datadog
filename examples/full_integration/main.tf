@@ -19,15 +19,15 @@ provider "datadog" {
 }
 
 provider "aws" {
-  region  = var.aws_region
+  region = var.aws_region
 }
 
 module "datadog" {
-  source = "../.."
-  aws_region         = var.aws_region
-  datadog_api_key    = var.dd_api_key
-  datadog_app_key    = var.dd_app_key
-  aws_account_id     = data.aws_caller_identity.current.account_id
+  source          = "../.."
+  aws_region      = var.aws_region
+  datadog_api_key = var.dd_api_key
+  datadog_app_key = var.dd_app_key
+  aws_account_id  = data.aws_caller_identity.current.account_id
 
   cloudtrail_bucket_id  = "S3_BUCKET_ID"
   cloudtrail_bucket_arn = "S3_BUCKET_ARN"
