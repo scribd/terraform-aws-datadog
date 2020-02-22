@@ -55,7 +55,7 @@ Cloudwatch log sync are namspaced by module.
 
 ## Development
 
-Releases are cut using [go-semrel-gitlab](https://gitlab.com/juhani/go-semrel-gitlab)
+Releases are cut using [semantic-release](https://github.com/semantic-release/semantic-release)
 
 Format commit messages using [Conventional Commits format](https://www.conventionalcommits.org/en/v1.0.0-beta.2/) to determine the next version bump and to produce release notes
 
