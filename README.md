@@ -85,5 +85,5 @@ When a commit contains a breaking change, the commit message should contain `BRE
 
 ## Troubleshooting
 
-If you should encounter `Datadog is not authorized to perform action sts:AssumeRole Accounts affected: 754595446877, 228539533740 Regions affected: every region Errors began reporting 18m ago, last seen 5m ago`
+If you should encounter `Datadog is not authorized to perform action sts:AssumeRole Accounts affected: 1234567890, 1234567891 Regions affected: every region Errors began reporting 18m ago, last seen 5m ago`
 Then perhaps the external ID has changed. Execute `./terraform taint module.datadog.datadog_integration_aws.core[0]` in the root module of the account repo to force a refresh.
