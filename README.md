@@ -49,8 +49,8 @@ Cloudwatch log sync are namspaced by module.
 
 ## Examples
 
-* Full AWS Datadog integration (https://github.com/scribd/terraform-aws-datadog/tree/master/examples/full_integration)
-* Cloudwatch log sync only (https://github.com/scribd/terraform-aws-datadog/tree/master/examples/cloudwatch_log_sync)
+* [Full AWS Datadog integration](https://github.com/scribd/terraform-aws-datadog/tree/master/examples/full_integration)
+* [Cloudwatch log sync only](https://github.com/scribd/terraform-aws-datadog/tree/master/examples/cloudwatch_log_sync)
 
 
 ## Development
@@ -80,8 +80,8 @@ When a commit contains a breaking change, the commit message should contain `BRE
 ## Cutting a release
 
 ### Maintainers
-- [QP](https://github.com/houqp)
 - [Jim](https://github.com/jim80net)
+- [QP](https://github.com/houqp)
 
 ## Troubleshooting
 
