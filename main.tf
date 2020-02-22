@@ -1,6 +1,4 @@
-##
-## This tf file will enable datadog integration on scribd-master account
-##
+## This tf file will setup Datadog AWS integration
 
 resource "datadog_integration_aws" "core" {
   count      = var.enable_datadog_aws_integration ? 1 : 0
