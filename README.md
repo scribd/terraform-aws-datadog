@@ -13,11 +13,6 @@ Terraform module which sets up various AWS / Datadog integrations including:
 **Set up all supported AWS / Datadog integrations**
 
 ```
-provider "datadog" {
-  api_key = var.datadog_api_key
-  app_key = var.datadog_app_key
-}
-
 module "datadog" {
   source                = "git::https://github.com/scribd/terraform-aws-datadog.git?ref=master"
   aws_account_id        = data.aws_caller_identity.current.account_id
@@ -38,11 +33,6 @@ Creating this module in multiple terraform stacks will cause conflicts.
 **Limit to only Cloudwatch log sync**
 
 ```
-provider "datadog" {
-  api_key = var.datadog_api_key
-  app_key = var.datadog_app_key
-}
-
 module "datadog" {
   source                         = "git::https://github.com/scribd/terraform-aws-datadog.git?ref=master"
   datadog_api_key                = var.datadog_api_key
@@ -55,6 +45,12 @@ module "datadog" {
 Note: It is safe to create multiple Cloudwatch only modules across different
 Terraform stacks within a single AWS account since all resouces used for
 Cloudwatch log sync are namspaced by module.
+
+
+## Examples
+
+* Full AWS Datadog integration (https://github.com/scribd/terraform-aws-datadog/tree/master/examples/full_integration)
+* Cloudwatch log sync only (https://github.com/scribd/terraform-aws-datadog/tree/master/examples/cloudwatch_log_sync)
 
 
 ## Development
