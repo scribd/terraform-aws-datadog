@@ -73,6 +73,7 @@ resource "aws_iam_role_policy_attachment" "datadog-logshipping-lambda-attach3" {
   role       = "${aws_iam_role.dd-log-lambda.name}"
   policy_arn = "arn:aws:iam::aws:policy/AWSXrayWriteOnlyAccess"
 }
+
 resource "aws_lambda_function" "dd-log" {
   filename      = "${path.module}/files/dd_log_lambda.zip"
   function_name = "${local.stack_prefix}DatadogLambdaFunction"

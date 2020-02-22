@@ -22,9 +22,13 @@ resource "aws_s3_bucket_notification" "elblog-notification-dd-log" {
 
 data "aws_elb_service_account" "main" {}
 
+locals {
+  elb_logs_s3_bucket = "${var.elb_logs_bucket_prefix}-${var.namespace}-elb-logs"
+}
+
 resource "aws_s3_bucket" "elb_logs" {
   count  = var.create_elb_logs_bucket ? 1 : 0
-  bucket = "scribd-${var.namespace}-elb-logs"
+  bucket = local.elb_logs_s3_bucket
   acl    = "private"
   policy = <<POLICY
 {
@@ -36,7 +40,7 @@ resource "aws_s3_bucket" "elb_logs" {
         "s3:PutObject"
       ],
       "Effect": "Allow",
-      "Resource": "arn:aws:s3:::scribd-${var.namespace}-elb-logs/*",
+      "Resource": "arn:aws:s3:::${local.elb_logs_s3_bucket}/*",
       "Principal": {
         "AWS": [
           "${data.aws_elb_service_account.main.arn}"

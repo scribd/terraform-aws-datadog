@@ -1,15 +1,16 @@
 # terraform-aws-datadog
 
-This module configures the AWS / Datadog integration.
+Terraform module which sets up various AWS / Datadog integrations including:
 
-- Can configure cloudtrail logshipping
-- Can create elb s3 bucket for logs and logshipping
-- Can sync cloudwatch logs for a given list of log groups
+- Configure Datadog's builtin AWS integration
+- Configure Cloudtrail logshipping
+- Create ELB S3 bucket for logs and logshipping
+- Sync Cloudwatch logs for a given list of log groups
 
 
 ## Usage
 
-**Org Master With CloudTrail**
+**Set up all supported AWS / Datadog integrations**
 
 ```
 provider "datadog" {
@@ -18,32 +19,23 @@ provider "datadog" {
 }
 
 module "datadog" {
-  source = "git::ssh://git@git.lo/terraform/terraform-aws-datadog?ref=master"
-
-
+  source                = "git::https://github.com/scribd/terraform-aws-datadog.git?ref=master"
   aws_account_id        = data.aws_caller_identity.current.account_id
+  datadog_api_key       = var.datadog_api_key
+
   cloudtrail_bucket_id  = aws_s3_bucket.org-cloudtrail-bucket.id
   cloudtrail_bucket_arn = aws_s3_bucket.org-cloudtrail-bucket.arn
-  datadog_api_key       = var.datadog_api_key
+
+  cloudwatch_log_groups = ["cloudwatch_log_group_1", "cloudwatch_log_group_2"]
 }
 ```
 
-**Normal**
+Note: The full integration setup should only be done within one terraform stack
+per account since some of the resources it creates are global per account.
+Creating this module in multiple terraform stacks will cause conflicts.
 
-```
-provider "datadog" {
-  api_key = var.datadog_api_key
-  app_key = var.datadog_app_key
-}
 
-module "datadog" {
-  source = "git::ssh://git@git.lo/terraform/terraform-aws-datadog?ref=master"
-
-  aws_account_id      = var.aws_account_id
-}
-```
-
-**Limit to only cloudwatch log sync**
+**Limit to only Cloudwatch log sync**
 
 ```
 provider "datadog" {
@@ -52,14 +44,18 @@ provider "datadog" {
 }
 
 module "datadog" {
-  source = "git::ssh://git@git.lo/terraform/terraform-aws-datadog?ref=master"
-
-  aws_account_id                 = var.aws_account_id
+  source                         = "git::https://github.com/scribd/terraform-aws-datadog.git?ref=master"
+  datadog_api_key                = var.datadog_api_key
   create_elb_logs_bucket         = false
   enable_datadog_aws_integration = false
   cloudwatch_log_groups          = ["cloudwatch_log_group_1", "cloudwatch_log_group_2"]
 }
 ```
+
+Note: It is safe to create multiple Cloudwatch only modules across different
+Terraform stacks within a single AWS account since all resouces used for
+Cloudwatch log sync are namspaced by module.
+
 
 ## Development
 
@@ -84,23 +80,14 @@ patch bump: fix,refactor,perf,docs,style,tes
 
 When a commit contains a breaking change, the commit message should contain `BREAKING CHANGE:`
 
+
 ## Cutting a release
 
 ### Maintainers
-- [QP](https://git.lo/qph)
-- [Jim](https://git.lo/jimp)
+- [QP](https://github.com/houqp)
+- [Jim](https://github.com/jim80net)
 
-### Checklist
-
-- Merge into master 
-- Watch the pipeline, or not.
-- You have two methods for convergence of the release across the organization. 
-  -  Push: Search for `source = "git::ssh://git@git.lo/terraform/terraform-aws-datadog?ref=` amongst all git.lo/terraform repos. I have a [checkout of all projects](https://git.lo/jimp/jimtools/blob/master/update_all.sh) in this group to facilitate doing this using ripgrep. Make an MR and communicate the changes + MR
-  -  Pull: Communicate the change to a public channel to facilitate people updating their versions.
-  -  Future TODO: Publish these releases to a public registry so that consumers can [automatically follow releases according to SemVer rules](https://www.terraform.io/docs/configuration/modules.html#module-versions). 
-  
 ## Troubleshooting
 
 If you should encounter `Datadog is not authorized to perform action sts:AssumeRole Accounts affected: 754595446877, 228539533740 Regions affected: every region Errors began reporting 18m ago, last seen 5m ago`
-Then perhaps the external ID has changed. Execute `./terraform taint module.datadog.datadog_integration_aws.core[0]` in the root module of the account repo
-  
+Then perhaps the external ID has changed. Execute `./terraform taint module.datadog.datadog_integration_aws.core[0]` in the root module of the account repo to force a refresh.

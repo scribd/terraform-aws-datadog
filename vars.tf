@@ -1,29 +1,30 @@
 variable "aws_account_id" {
   description = "The ID of the AWS account to create the integration for"
-  type        = "string"
+  type        = string
+  default     = ""  # only needed if enable_datadog_aws_integration is set to true
 }
 variable "aws_region" {
   description = "AWS Region"
-  type        = "string"
+  type        = string
   default     = "us-east-2"
 }
 variable "cloudtrail_bucket_id" {
   description = "The Cloudtrail bucket ID. Use only from org master account."
-  type        = "string"
+  type        = string
   default     = ""
 }
 variable "cloudtrail_bucket_arn" {
   description = "The Cloudtrail bucket ID. Use only from org master account"
-  type        = "string"
+  type        = string
   default     = ""
 }
 variable "datadog_api_key" {
   description = "The API key for the datadog integration."
-  type        = "string"
+  type        = string
 }
 variable "namespace" {
   description = "The namespace tag to apply to all data sent to datadog"
-  type        = "string"
+  type        = string
   default     = ""
 }
 variable "create_elb_logs_bucket" {
@@ -50,4 +51,9 @@ variable "account_specific_namespace_rules" {
   description = "account_specific_namespace_rules argument for datadog_integration_aws resource"
   type        = map
   default     = {}
+}
+variable "elb_logs_bucket_prefix" {
+  description = "Prefix for ELB logs S3 bucket name"
+  type        = string
+  default     = "awsdd"
 }
