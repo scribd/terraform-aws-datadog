@@ -2,6 +2,19 @@
 
 <!--- next entry here -->
 
+## 0.2.0
+2020-02-22
+
+### Breaking changes
+
+#### export lambda function name instead of ARN (68fb6dc02e146765ee785ce1a67e7c68608ec5a7)
+
+One can get ARN from function name via
+`data "aws_lambda_function"`, but to get function name
+out ARM, one needs to apply regexes.
+
+I looked around and nothing seems to be using it
+
 ## 0.1.10
 2020-02-20
 
