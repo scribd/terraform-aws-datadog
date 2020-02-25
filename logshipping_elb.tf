@@ -24,7 +24,7 @@ data "aws_elb_service_account" "main" {}
 
 resource "aws_s3_bucket" "elb_logs" {
   count  = var.create_elb_logs_bucket ? 1 : 0
-  bucket = "scribd-${var.namespace}-elb-logs"
+  bucket = "scribd-${var.namespace}-${var.env}-elb-logs"
   acl    = "private"
   policy = <<POLICY
 {
@@ -36,7 +36,7 @@ resource "aws_s3_bucket" "elb_logs" {
         "s3:PutObject"
       ],
       "Effect": "Allow",
-      "Resource": "arn:aws:s3:::scribd-${var.namespace}-elb-logs/*",
+      "Resource": "arn:aws:s3:::scribd-${var.namespace}-${var.env}-elb-logs/*",
       "Principal": {
         "AWS": [
           "${data.aws_elb_service_account.main.arn}"
