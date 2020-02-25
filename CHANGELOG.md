@@ -2,6 +2,31 @@
 
 <!--- next entry here -->
 
+## 0.3.0
+2020-02-25
+
+### Breaking changes
+
+#### BREAKING CHANGE: Include Env variable in ELB log S3 bucket naming (7a582fc721f772ac79d5e54bd50c9bde7c1acc0f)
+
+Include Env variable in ELB log S3 bucket naming
+
+Datadog side, there should be no impact to the shipped logs. AWS side, ELB logs will no longer be in the same place.
+
+Since I expect datadog logs to be the ones in common use, the expected behavior is preserved at the end of the data pipe, just not in the middle.
+
+If you want to retain your ELB logs in one bucket, please use `aws s3 cp`
+
+Thank you!
+
+COREINF-1565
+
+#### Merge branch 'jimp/change_elb_log_bucket_naming' into 'master' (2d87eee37f093740a312ff94b4ceb5538900f485)
+
+Include Env variable in ELB log S3 bucket naming
+
+See merge request terraform/terraform-aws-datadog!8
+
 ## 0.2.0
 2020-02-22
 
