@@ -57,3 +57,8 @@ variable "elb_logs_bucket_prefix" {
   type        = string
   default     = "awsdd"
 }
+variable "log_exclude_at_match" {
+  description = "Sets EXCLUDE_AT_MATCH environment variable, which allows excluding unwanted log lines"
+  type        = "string"
+  default     = "$x^" # <- never matches anything
+}

@@ -97,8 +97,9 @@ resource "aws_lambda_function" "dd-log" {
 
   environment {
     variables = {
-      DD_API_KEY = var.datadog_api_key
-      DD_TAGS    = "namespace:${var.namespace},env:${var.env}"
+      DD_API_KEY       = var.datadog_api_key
+      DD_TAGS          = "namespace:${var.namespace},env:${var.env}"
+      EXCLUDE_AT_MATCH = var.log_exclude_at_match
     }
   }
 }
