@@ -1,10 +1,9 @@
-
 # Make lambda function accept invokes from S3
 resource "aws_lambda_permission" "allow-elblog-trigger" {
   count         = var.create_elb_logs_bucket ? 1 : 0
   statement_id  = "AllowExecutionFromELBLogBucket"
   action        = "lambda:InvokeFunction"
-  function_name = "${aws_lambda_function.dd-log.arn}"
+  function_name = aws_lambda_function.dd-log.arn
   principal     = "s3.amazonaws.com"
   source_arn    = aws_s3_bucket.elb_logs[0].arn
 }
@@ -15,7 +14,7 @@ resource "aws_s3_bucket_notification" "elblog-notification-dd-log" {
   bucket = aws_s3_bucket.elb_logs[0].id
 
   lambda_function {
-    lambda_function_arn = "${aws_lambda_function.dd-log.arn}"
+    lambda_function_arn = aws_lambda_function.dd-log.arn
     events              = ["s3:ObjectCreated:*"]
   }
 }
@@ -83,4 +82,3 @@ POLICY
     }
   }
 }
-

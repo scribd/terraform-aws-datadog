@@ -128,6 +128,6 @@ EOF
 
 resource "aws_iam_role_policy_attachment" "datadog-core-attach" {
   count      = var.enable_datadog_aws_integration ? 1 : 0
-  role       = "${aws_iam_role.datadog-integration[0].name}"
-  policy_arn = "${aws_iam_policy.datadog-core[0].arn}"
+  role       = aws_iam_role.datadog-integration[0].name
+  policy_arn = aws_iam_policy.datadog-core[0].arn
 }

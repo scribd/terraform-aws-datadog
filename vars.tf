@@ -59,6 +59,6 @@ variable "elb_logs_bucket_prefix" {
 }
 variable "log_exclude_at_match" {
   description = "Sets EXCLUDE_AT_MATCH environment variable, which allows excluding unwanted log lines"
-  type        = "string"
+  type        = string
   default     = "$x^" # <- never matches anything
 }

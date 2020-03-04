@@ -60,31 +60,28 @@ EOF
 }
 
 resource "aws_iam_role_policy_attachment" "datadog-logshipping-lambda-attach" {
-  role       = "${aws_iam_role.dd-log-lambda.name}"
-  policy_arn = "${aws_iam_policy.datadog-logshipping.arn}"
+  role       = aws_iam_role.dd-log-lambda.name
+  policy_arn = aws_iam_policy.datadog-logshipping.arn
 }
 
 resource "aws_iam_role_policy_attachment" "datadog-logshipping-lambda-attach2" {
-  role       = "${aws_iam_role.dd-log-lambda.name}"
+  role       = aws_iam_role.dd-log-lambda.name
   policy_arn = "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
 }
 
 resource "aws_iam_role_policy_attachment" "datadog-logshipping-lambda-attach3" {
-  role       = "${aws_iam_role.dd-log-lambda.name}"
+  role       = aws_iam_role.dd-log-lambda.name
   policy_arn = "arn:aws:iam::aws:policy/AWSXrayWriteOnlyAccess"
 }
 
 resource "aws_lambda_function" "dd-log" {
   filename      = "${path.module}/files/dd_log_lambda.zip"
   function_name = "${local.stack_prefix}DatadogLambdaFunction"
-  role          = "${aws_iam_role.dd-log-lambda.arn}"
+  role          = aws_iam_role.dd-log-lambda.arn
   handler       = "lambda_function.lambda_handler"
   description   = "This lambda function will export logs to our orgs Datadog events"
 
-  # The filebase64sha256() function is available in Terraform 0.11.12 and later
-  # For Terraform 0.11.11 and earlier, use the base64sha256() function and the file() function:
-  # source_code_hash = "${base64sha256(file("lambda_function_payload.zip"))}"
-  source_code_hash = "${filebase64sha256("${path.module}/files/dd_log_lambda.zip")}"
+  source_code_hash = filebase64sha256("${path.module}/files/dd_log_lambda.zip")
 
   runtime     = "python2.7"
   memory_size = "1024"
