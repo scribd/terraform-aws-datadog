@@ -1,11 +1,17 @@
 # terraform-aws-datadog
 
-Terraform module which sets up various AWS / Datadog integrations including:
+This module configures the AWS / Datadog integration.
 
-- Configure Datadog's builtin AWS integration
-- Configure Cloudtrail logshipping
-- Create ELB S3 bucket for logs and logshipping
-- Sync Cloudwatch logs for a given list of log groups
+There are two main components:
+
+1. Datadog core integration, enabling [datadog's AWS integration](https://docs.datadoghq.com/integrations/amazon_web_services/)
+2. Datadog log forwarder, enabling [logshipping watched S3 buckets](https://github.com/DataDog/datadog-serverless-functions/tree/master/aws/logs_monitoring)
+  - Forward CloudWatch, ELB, S3, CloudTrail, VPC and CloudFront logs to Datadog
+  - Forward S3 events to Datadog
+  - Forward Kinesis data stream events to Datadog, only CloudWatch logs are supported
+  - Forward custom metrics from AWS Lambda functions via CloudWatch logs
+  - Forward traces from AWS Lambda functions via CloudWatch logs
+  - Generate and submit enhanced Lambda metrics (aws.lambda.enhanced.*) parsed from the AWS REPORT log: duration, billed_duration, max_memory_used, and estimated_cost
 
 
 ## Usage

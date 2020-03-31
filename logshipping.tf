@@ -75,15 +75,15 @@ resource "aws_iam_role_policy_attachment" "datadog-logshipping-lambda-attach3" {
 }
 
 resource "aws_lambda_function" "dd-log" {
-  filename      = "${path.module}/files/dd_log_lambda.zip"
+  filename      = "${path.module}/files/aws-dd-forwarder-3.5.0.zip"
   function_name = "${local.stack_prefix}DatadogLambdaFunction"
   role          = aws_iam_role.dd-log-lambda.arn
   handler       = "lambda_function.lambda_handler"
   description   = "This lambda function will export logs to our orgs Datadog events"
 
-  source_code_hash = filebase64sha256("${path.module}/files/dd_log_lambda.zip")
+  source_code_hash = filebase64sha256("${path.module}/files/aws-dd-forwarder-3.5.0.zip")
 
-  runtime     = "python2.7"
+  runtime     = "python3.7"
   memory_size = "1024"
   timeout     = "120"
 
