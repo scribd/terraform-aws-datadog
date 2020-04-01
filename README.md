@@ -5,7 +5,7 @@ This module configures the AWS / Datadog integration.
 There are two main components:
 
 1. Datadog core integration, enabling [datadog's AWS integration](https://docs.datadoghq.com/integrations/amazon_web_services/)
-2. Datadog log forwarder, enabling [logshipping watched S3 buckets](https://github.com/DataDog/datadog-serverless-functions/tree/master/aws/logs_monitoring)
+2. Datadog logs_monitoring forwarder, enabling [logshipping watched S3 buckets](https://github.com/DataDog/datadog-serverless-functions/tree/master/aws/logs_monitoring)
   - Forward CloudWatch, ELB, S3, CloudTrail, VPC and CloudFront logs to Datadog
   - Forward S3 events to Datadog
   - Forward Kinesis data stream events to Datadog, only CloudWatch logs are supported

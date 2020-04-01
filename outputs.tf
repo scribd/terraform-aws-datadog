@@ -1,4 +1,4 @@
-output "datadog_log_shipping_lambda_function_name" {
+output "datadog_logs_monitoring_lambda_function_name" {
   value = aws_cloudformation_stack.datadog-forwarder.outputs.DatadogForwarderArn
 }
 output "datadog_iam_role" {
