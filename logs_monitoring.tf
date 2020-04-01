@@ -7,5 +7,5 @@ resource "aws_cloudformation_stack" "datadog-forwarder" {
     ExcludeAtMatch = var.log_exclude_at_match
     FunctionName   = "datadog-forwarder"
   }
-  template_url = "https://datadog-cloudformation-template.s3.amazonaws.com/aws/forwarder/latest.yaml"
+  template_url = "https://datadog-cloudformation-template.s3.amazonaws.com/aws/forwarder/3.6.0.yaml"
 }
