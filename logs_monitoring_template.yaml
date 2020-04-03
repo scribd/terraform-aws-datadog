@@ -391,7 +391,10 @@ Resources:
               Action:
                 - secretsmanager:GetSecretValue
               Resource:
-                Ref: DdApiKeySecret
+                Fn::If:
+                  - SetDdApiKeySecretFromApiKey
+                  - Ref: DdApiKeySecretFromApiKey
+                  - Ref: DdApiKeySecret
             - !If
               - SetDdFetchLambdaTags
               - Effect: Allow
