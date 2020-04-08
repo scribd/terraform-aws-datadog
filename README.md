@@ -23,11 +23,19 @@ module "datadog" {
   source                = "git::https://github.com/scribd/terraform-aws-datadog.git?ref=master"
   aws_account_id        = data.aws_caller_identity.current.account_id
   datadog_api_key       = var.datadog_api_key
+  env                   = local.tags.env
+  namespace             = local.tags.namespace
 
   cloudtrail_bucket_id  = aws_s3_bucket.org-cloudtrail-bucket.id
   cloudtrail_bucket_arn = aws_s3_bucket.org-cloudtrail-bucket.arn
 
   cloudwatch_log_groups = ["cloudwatch_log_group_1", "cloudwatch_log_group_2"]
+
+  account_specific_namespace_rules = {
+    elasticache = true
+    network_elb = true
+    lambda      = true
+  }
 }
 ```
 
@@ -44,7 +52,10 @@ module "datadog" {
   datadog_api_key                = var.datadog_api_key
   create_elb_logs_bucket         = false
   enable_datadog_aws_integration = false
-  cloudwatch_log_groups          = ["cloudwatch_log_group_1", "cloudwatch_log_group_2"]
+  env                            = local.tags.env
+  namespace                      = local.tags.namespace
+
+  cloudwatch_log_groups = ["cloudwatch_log_group_1", "cloudwatch_log_group_2"]
 }
 ```
 
