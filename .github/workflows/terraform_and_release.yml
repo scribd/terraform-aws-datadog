@@ -1,11 +1,7 @@
-name: 'Terraform GitHub Actions'
+name: 'Terraform and Release'
 on:
   push:
-    branches:
-      - master
   pull_request:
-    branches:
-      - master
 jobs:
   terraform:
     name: 'Terraform'
@@ -48,3 +44,20 @@ jobs:
           tf_actions_subcommand: 'validate'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  release:
+   if: github.event_name == 'push'
+   needs: terraform
+   runs-on: ubuntu-latest
+
+   steps:
+   - uses: actions/checkout@v2
+   - name: Semantic Release
+     id: semantic
+     uses: cycjimmy/semantic-release-action@v2
+     env:
+       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+     with:
+       semantic_version: 17
+       extra_plugins: |
+         @semantic-release/changelog
+         @semantic-release/git
