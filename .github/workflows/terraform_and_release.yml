@@ -1,4 +1,4 @@
-name: 'Terraform and Release'
+name: 'CICD'
 on:
   push:
   pull_request:

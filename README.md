@@ -1,5 +1,8 @@
 # terraform-aws-datadog
 
+[![cicd](https://github.com/scribd/terraform-aws-datadog/workflows/CICD/badge.svg)](https://github.com/scribd/terraform-aws-datadog/actions)
+[![terraformregistry](https://img.shields.io/badge/terraform-registry-blueviolet)](https://registry.terraform.io/modules/scribd/datadog/aws)
+
 This module configures the AWS / Datadog integration.
 
 There are two main components:
@@ -20,7 +23,8 @@ There are two main components:
 
 ```
 module "datadog" {
-  source                = "git::https://github.com/scribd/terraform-aws-datadog.git?ref=master"
+  source                = "scribd/datadog/aws"
+  version               = "~>1"
   aws_account_id        = data.aws_caller_identity.current.account_id
   datadog_api_key       = var.datadog_api_key
   env                   = "prod"
@@ -48,7 +52,8 @@ Creating this module in multiple terraform stacks will cause conflicts.
 
 ```
 module "datadog" {
-  source                         = "git::https://github.com/scribd/terraform-aws-datadog.git?ref=master"
+  source                         = "scribd/datadog/aws"
+  version                        = "~>1"
   datadog_api_key                = var.datadog_api_key
   create_elb_logs_bucket         = false
   enable_datadog_aws_integration = false
