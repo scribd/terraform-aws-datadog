@@ -23,7 +23,8 @@ provider "aws" {
 }
 
 module "datadog" {
-  source          = "../.."
+  source          = "scribd/datadog/aws"
+  version         = "~>1"
   aws_region      = var.aws_region
   datadog_api_key = var.dd_api_key
   datadog_app_key = var.dd_app_key
