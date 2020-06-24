@@ -11,7 +11,7 @@ resource aws_cloudformation_stack "datadog-forwarder" {
 }
 
 resource aws_secretsmanager_secret "datadog_api_key" {
-  name        = "${local.stack_prefix}datadog_api_key"
+  name        = "${local.stack_prefix}datadog-api-key"
   description = "Datadog API Key"
   tags        = local.default_tags
 }
