@@ -1,14 +1,14 @@
 resource aws_cloudformation_stack "datadog-forwarder" {
   name         = "${local.stack_prefix}datadog-forwarder"
   capabilities = ["CAPABILITY_IAM", "CAPABILITY_NAMED_IAM", "CAPABILITY_AUTO_EXPAND"]
-  parameters   = {
+  parameters = {
     DdApiKeySecretArn = aws_secretsmanager_secret.datadog_api_key.arn
     DdApiKey          = "dummy-value"
     DdTags            = "namespace:${var.namespace},env:${var.env}"
     ExcludeAtMatch    = var.log_exclude_at_match
     FunctionName      = "${local.stack_prefix}datadog-forwarder"
   }
-  template_url = "https://datadog-cloudformation-template.s3.amazonaws.com/aws/forwarder/${var.dd_forwarer_template_version}.yaml"
+  template_url = "https://datadog-cloudformation-template.s3.amazonaws.com/aws/forwarder/${var.dd_forwarder_template_version}.yaml"
 
   lifecycle {
     ignore_changes = [

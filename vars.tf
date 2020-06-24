@@ -63,8 +63,8 @@ variable "log_exclude_at_match" {
   default     = "$x^" # <- never matches anything
 }
 
-variable "dd_forwarer_template_version" {
+variable "dd_forwarder_template_version" {
   description = "Sets Datadog Forwarder version to use"
-  type = string
-  default = "3.13.0"
+  type        = string
+  default     = "3.13.0"
 }
