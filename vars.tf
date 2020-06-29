@@ -68,3 +68,15 @@ variable "dd_forwarder_template_version" {
   type        = string
   default     = "3.13.0"
 }
+
+variable "excluded_regions" {
+  description = "An array of AWS regions to exclude from metrics collection"
+  type        = list(string)
+  default     = []
+}
+
+variable "filter_tags" {
+  description = "Array of EC2 tags (in the form key:value) defines a filter that Datadog use when collecting metrics from EC2. Wildcards, such as ? (for single characters) and * (for multiple characters) can also be used. Only hosts that match one of the defined tags will be imported into Datadog. The rest will be ignored."
+  type        = list(string)
+  default     = []
+}

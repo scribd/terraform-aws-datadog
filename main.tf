@@ -4,11 +4,15 @@ resource "datadog_integration_aws" "core" {
   count      = var.enable_datadog_aws_integration ? 1 : 0
   account_id = var.aws_account_id
   role_name  = "datadog-integration-role"
+
   host_tags = [
     "Namespace:${var.namespace}",
     "env:${var.env}"
   ]
+
   account_specific_namespace_rules = var.account_specific_namespace_rules
+  excluded_regions                 = var.excluded_regions
+  filter_tags                      = var.filter_tags
 }
 
 resource "aws_iam_role" "datadog-integration" {
