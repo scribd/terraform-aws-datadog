@@ -1,3 +1,10 @@
+## [1.2.1-alpha.1](https://github.com/scribd/terraform-aws-datadog/compare/v1.2.0...v1.2.1-alpha.1) (2020-07-07)
+
+
+### Bug Fixes
+
+* use name_prefix instead of static name to avoid ([8bec72c](https://github.com/scribd/terraform-aws-datadog/commit/8bec72c7bb3fbf1f2c930da3af3dcf31b1b4c6fb))
+
 # [1.2.0](https://github.com/scribd/terraform-aws-datadog/compare/v1.1.0...v1.2.0) (2020-07-02)
 
 
