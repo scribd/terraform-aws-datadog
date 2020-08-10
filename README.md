@@ -68,6 +68,8 @@ Note: It is safe to create multiple Cloudwatch only modules across different
 Terraform stacks within a single AWS account since all resouces used for
 Cloudwatch log sync are namspaced by module.
 
+**Be certain to use unique  `namespace`/`env` combinations, to avoid conflict with other instances of this module.
+
 
 ## Examples
 
