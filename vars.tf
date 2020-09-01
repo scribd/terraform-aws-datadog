@@ -66,7 +66,13 @@ variable "log_exclude_at_match" {
 variable "dd_forwarder_template_version" {
   description = "Sets Datadog Forwarder version to use"
   type        = string
-  default     = "3.13.0"
+  default     = "3.17.0"
+}
+
+variable "dd_forwarder_dd_site" {
+  type        = string
+  default     = "datadoghq.com"
+  description = "Define your Datadog Site to send data to. For the Datadog EU site, set to datadoghq.eu"
 }
 
 variable "excluded_regions" {
