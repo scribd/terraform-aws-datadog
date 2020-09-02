@@ -1,3 +1,10 @@
+# [1.3.0](https://github.com/scribd/terraform-aws-datadog/compare/v1.2.1...v1.3.0) (2020-09-02)
+
+
+### Features
+
+* **log forwarding:** support DdSite option + upgrade default CF template version used ([1e0f7bc](https://github.com/scribd/terraform-aws-datadog/commit/1e0f7bc88f6fef7e0ab3ffc4c11a83daed60e09b))
+
 ## [1.2.1](https://github.com/scribd/terraform-aws-datadog/compare/v1.2.0...v1.2.1) (2020-08-10)
 
 
