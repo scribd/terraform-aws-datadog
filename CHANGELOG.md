@@ -1,3 +1,10 @@
+## [1.3.1](https://github.com/scribd/terraform-aws-datadog/compare/v1.3.0...v1.3.1) (2020-10-25)
+
+
+### Bug Fixes
+
+* Add missing IAM permissions for new version of log forwarder  ([#18](https://github.com/scribd/terraform-aws-datadog/issues/18)) ([b741a4b](https://github.com/scribd/terraform-aws-datadog/commit/b741a4b565b8ce54b545521700ff7406495df34f))
+
 # [1.3.0](https://github.com/scribd/terraform-aws-datadog/compare/v1.2.1...v1.3.0) (2020-09-02)
 
 
