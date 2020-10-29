@@ -63,6 +63,7 @@ resource "aws_iam_policy" "datadog-core" {
         "cloudfront:ListDistributions",
         "cloudtrail:DescribeTrails",
         "cloudtrail:GetTrailStatus",
+        "cloudtrail:LookupEvents",
         "cloudwatch:Describe*",
         "cloudwatch:Get*",
         "cloudwatch:List*",
