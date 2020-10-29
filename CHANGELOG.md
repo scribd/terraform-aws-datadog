@@ -1,3 +1,10 @@
+## [1.3.2](https://github.com/scribd/terraform-aws-datadog/compare/v1.3.1...v1.3.2) (2020-10-29)
+
+
+### Bug Fixes
+
+* Add cloudtrail:LookupEvents IAM rights ([#19](https://github.com/scribd/terraform-aws-datadog/issues/19)) ([bba2d91](https://github.com/scribd/terraform-aws-datadog/commit/bba2d9104715b5559a8edf8bc8cd445313abaacb))
+
 ## [1.3.1](https://github.com/scribd/terraform-aws-datadog/compare/v1.3.0...v1.3.1) (2020-10-25)
 
 
