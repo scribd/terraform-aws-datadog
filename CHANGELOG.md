@@ -1,3 +1,10 @@
+## [1.3.4](https://github.com/scribd/terraform-aws-datadog/compare/v1.3.3...v1.3.4) (2020-11-03)
+
+
+### Bug Fixes
+
+* use proper provider source for datadog ([6f292e7](https://github.com/scribd/terraform-aws-datadog/commit/6f292e7d0b2c277c9751dce1c9806c47b1f22b89))
+
 ## [1.3.3](https://github.com/scribd/terraform-aws-datadog/compare/v1.3.2...v1.3.3) (2020-11-03)
 
 
