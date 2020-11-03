@@ -1,3 +1,11 @@
+## [1.3.3](https://github.com/scribd/terraform-aws-datadog/compare/v1.3.2...v1.3.3) (2020-11-03)
+
+
+### Bug Fixes
+
+* make minimum terraform version requirement an actual minimum ([f39e5e6](https://github.com/scribd/terraform-aws-datadog/commit/f39e5e69bf80b47cd56ce44f4e38e54d114289b9))
+* use a range of versions to limit the required versions ([d98714a](https://github.com/scribd/terraform-aws-datadog/commit/d98714af4bc1ffe55d9483eaaf0d8032d8501826))
+
 ## [1.3.2](https://github.com/scribd/terraform-aws-datadog/compare/v1.3.1...v1.3.2) (2020-10-29)
 
 
