@@ -1,3 +1,10 @@
+## [1.3.5](https://github.com/scribd/terraform-aws-datadog/compare/v1.3.4...v1.3.5) (2020-11-06)
+
+
+### Reverts
+
+* Revert "fix: use proper provider source for datadog" ([7240d04](https://github.com/scribd/terraform-aws-datadog/commit/7240d04b0b303948490d7eb099906e8370dfbc35))
+
 ## [1.3.4](https://github.com/scribd/terraform-aws-datadog/compare/v1.3.3...v1.3.4) (2020-11-03)
 
 
