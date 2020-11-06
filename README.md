@@ -70,6 +70,11 @@ Cloudwatch log sync are namspaced by module.
 
 **Be certain to use unique  `namespace`/`env` combinations, to avoid conflict with other instances of this module.
 
+## Module Versions
+
+Version 2.0.0 and greater require terraform version 0.13.x. 
+Version 1.3.5 is the latest version that support terraform version 0.12.x. 
+When using this module, please be sure to [pin to a compatible version](https://www.terraform.io/docs/configuration/modules.html#module-versions).
 
 ## Examples
 
