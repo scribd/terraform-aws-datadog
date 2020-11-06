@@ -1,3 +1,26 @@
+# [2.0.0](https://github.com/scribd/terraform-aws-datadog/compare/v1.3.5...v2.0.0) (2020-11-06)
+
+
+### Features
+
+* drop support for terraform 0.12.x ([be79b7e](https://github.com/scribd/terraform-aws-datadog/commit/be79b7e612b8932dd2d7c062b864a9a5ecff1db6))
+
+
+### BREAKING CHANGES
+
+* Please use a version constraint for this module
+if you are staying on terraform 0.12.x
+
+Example:
+
+```
+module "datadog" {
+  source  = "scribd/datadog/aws"
+  version = "1.3.5"
+  # insert the 1 required variable here
+}
+```
+
 ## [1.3.5](https://github.com/scribd/terraform-aws-datadog/compare/v1.3.4...v1.3.5) (2020-11-06)
 
 
