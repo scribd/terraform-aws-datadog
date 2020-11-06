@@ -10,20 +10,12 @@ jobs:
       - name: 'Checkout'
         uses: actions/checkout@master
 
-      - name: 'Terraform Format'
-        uses: hashicorp/terraform-github-actions@master
+      - uses: hashicorp/setup-terraform@v1
         with:
-          tf_actions_version: 0.12.20
-          tf_actions_subcommand: 'fmt'
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - name: 'Terraform Init'
-        uses: hashicorp/terraform-github-actions@master
-        with:
-          tf_actions_version: 0.12.20
-          tf_actions_subcommand: 'init'
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          tf_actions_version: 0.13.x
+
+      - run: terraform fmt
+      - run: terraform init
 
       - name: 'Inject provider configs for validate command'
         run: |
@@ -37,13 +29,9 @@ jobs:
               app_key = ""
             }
             EOF
-      - name: 'Terraform Validate'
-        uses: hashicorp/terraform-github-actions@master
-        with:
-          tf_actions_version: 0.12.20
-          tf_actions_subcommand: 'validate'
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - run: terraform validate
+
   release:
    if: github.event_name == 'push'
    needs: terraform
