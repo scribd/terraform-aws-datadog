@@ -87,14 +87,8 @@ variable "filter_tags" {
   default     = []
 }
 
-variable "enable_logs_s3_archival" {
-  description = "Enable adding rights for Datadog S3 archival"
-  type        = bool
-  default     = false
-}
-
-variable "logs_s3_archival_bucket_name" {
-  description = "S3 bucket to use for archival"
-  type        = string
-  default     = "" # only needed if enable_logs_s3_archival is set to true
+variable "extra_policy_arns" {
+  description = "Extra policy arns to attach to the datadog-integration-role"
+  type        = list(string)
+  default     = []
 }

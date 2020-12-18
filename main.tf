@@ -138,3 +138,9 @@ resource "aws_iam_role_policy_attachment" "datadog-core-attach" {
   role       = aws_iam_role.datadog-integration[0].name
   policy_arn = aws_iam_policy.datadog-core[0].arn
 }
+
+resource "aws_iam_role_policy_attachment" "datadog-core-attach-extras" {
+  for_each   = toset(var.extra_policy_arns)
+  role       = aws_iam_role.datadog-integration[0].name
+  policy_arn = each.value
+}
