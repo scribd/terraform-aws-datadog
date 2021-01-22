@@ -64,6 +64,7 @@ resource "aws_iam_policy" "datadog-core" {
         "cloudtrail:DescribeTrails",
         "cloudtrail:GetTrailStatus",
         "cloudtrail:LookupEvents",
+        "cloudwatch:ListMetrics",
         "cloudwatch:Describe*",
         "cloudwatch:Get*",
         "cloudwatch:List*",
