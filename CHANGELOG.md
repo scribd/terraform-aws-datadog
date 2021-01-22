@@ -1,3 +1,10 @@
+## [2.0.1](https://github.com/scribd/terraform-aws-datadog/compare/v2.0.0...v2.0.1) (2021-01-22)
+
+
+### Bug Fixes
+
+* Add missing cloudwatch:ListMetrics access for AWS integration ([#27](https://github.com/scribd/terraform-aws-datadog/issues/27)) ([f7c80c2](https://github.com/scribd/terraform-aws-datadog/commit/f7c80c2c7a73fa5bf1ab7132c51ff24f3703d611))
+
 # [2.0.0](https://github.com/scribd/terraform-aws-datadog/compare/v1.3.5...v2.0.0) (2020-11-06)
 
 
