@@ -1,3 +1,10 @@
+# [2.1.0](https://github.com/scribd/terraform-aws-datadog/compare/v2.0.1...v2.1.0) (2021-03-16)
+
+
+### Features
+
+* changes dd lambda default version from v3.17.0 to v3.27.0 ([8e455a8](https://github.com/scribd/terraform-aws-datadog/commit/8e455a8f217ba398a79be90a9251c59f8eb4b1fe))
+
 ## [2.0.1](https://github.com/scribd/terraform-aws-datadog/compare/v2.0.0...v2.0.1) (2021-01-22)
 
 
