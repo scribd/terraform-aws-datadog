@@ -1,3 +1,10 @@
+## [2.3.1](https://github.com/scribd/terraform-aws-datadog/compare/v2.3.0...v2.3.1) (2021-08-17)
+
+
+### Bug Fixes
+
+* Merge pull request [#35](https://github.com/scribd/terraform-aws-datadog/issues/35) from scribd/taylorsmcclure/fix-iam-policy-v2 ([7bf7868](https://github.com/scribd/terraform-aws-datadog/commit/7bf78689e90293f4c6510025cce8cc48b8a4dafd))
+
 # [2.3.0](https://github.com/scribd/terraform-aws-datadog/compare/v2.2.0...v2.3.0) (2021-07-14)
 
 
