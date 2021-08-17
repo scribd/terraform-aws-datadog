@@ -1,3 +1,10 @@
+## [1.3.6](https://github.com/scribd/terraform-aws-datadog/compare/v1.3.5...v1.3.6) (2021-08-17)
+
+
+### Bug Fixes
+
+* fix datadog IAM policy to prevent numerous CloudTrail errors ([01b35db](https://github.com/scribd/terraform-aws-datadog/commit/01b35db0846eb9b006e62f4aca05f079898d972e))
+
 ## [1.3.5](https://github.com/scribd/terraform-aws-datadog/compare/v1.3.4...v1.3.5) (2020-11-06)
 
 
