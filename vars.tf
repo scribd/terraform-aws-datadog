@@ -49,7 +49,7 @@ variable "env" {
 }
 variable "account_specific_namespace_rules" {
   description = "account_specific_namespace_rules argument for datadog_integration_aws resource"
-  type        = map
+  type        = map(any)
   default     = {}
 }
 variable "elb_logs_bucket_prefix" {
