@@ -1,3 +1,10 @@
+# [2.4.0](https://github.com/scribd/terraform-aws-datadog/compare/v2.3.1...v2.4.0) (2021-08-25)
+
+
+### Features
+
+* attach extra iam policies ([#37](https://github.com/scribd/terraform-aws-datadog/issues/37)) ([8411cad](https://github.com/scribd/terraform-aws-datadog/commit/8411cadea20cfb5f113d9ce54c85919eff9a14e6))
+
 ## [2.3.1](https://github.com/scribd/terraform-aws-datadog/compare/v2.3.0...v2.3.1) (2021-08-17)
 
 
