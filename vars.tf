@@ -49,7 +49,7 @@ variable "env" {
 }
 variable "account_specific_namespace_rules" {
   description = "account_specific_namespace_rules argument for datadog_integration_aws resource"
-  type        = map
+  type        = map(any)
   default     = {}
 }
 variable "elb_logs_bucket_prefix" {
@@ -83,6 +83,12 @@ variable "excluded_regions" {
 
 variable "filter_tags" {
   description = "Array of EC2 tags (in the form key:value) defines a filter that Datadog use when collecting metrics from EC2. Wildcards, such as ? (for single characters) and * (for multiple characters) can also be used. Only hosts that match one of the defined tags will be imported into Datadog. The rest will be ignored."
+  type        = list(string)
+  default     = []
+}
+
+variable "extra_policy_arns" {
+  description = "Extra policy arns to attach to the datadog-integration-role"
   type        = list(string)
   default     = []
 }
