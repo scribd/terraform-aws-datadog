@@ -1,3 +1,10 @@
+# [2.5.0](https://github.com/scribd/terraform-aws-datadog/compare/v2.4.0...v2.5.0) (2021-10-01)
+
+
+### Features
+
+* added states permissions to dd module's IAM policy ([#38](https://github.com/scribd/terraform-aws-datadog/issues/38)) ([0cb8ab8](https://github.com/scribd/terraform-aws-datadog/commit/0cb8ab8af13c1f7e12b3b4e71556a4773d595ce4))
+
 # [2.4.0](https://github.com/scribd/terraform-aws-datadog/compare/v2.3.1...v2.4.0) (2021-08-25)
 
 
