@@ -120,6 +120,7 @@ resource "aws_iam_policy" "datadog-core" {
         "sns:List*",
         "sns:Publish",
         "states:ListStateMachines",
+        "states:DescribeStateMachine",
         "sqs:ListQueues",
         "support:*",
         "tag:GetResources",
