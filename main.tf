@@ -59,6 +59,7 @@ resource "aws_iam_policy" "datadog-core" {
         "apigateway:GET",
         "autoscaling:Describe*",
         "budgets:ViewBudget",
+        "cloudformation:DetectStack*",
         "cloudfront:GetDistributionConfig",
         "cloudfront:ListDistributions",
         "cloudtrail:DescribeTrails",
@@ -76,6 +77,7 @@ resource "aws_iam_policy" "datadog-core" {
         "ec2:Describe*",
         "ec2:DescribeInstanceStatus",
         "ec2:DescribeInstances",
+        "ecs:Describe*",
         "ecs:List*",
         "elasticache:Describe*",
         "elasticache:List*",
@@ -88,6 +90,7 @@ resource "aws_iam_policy" "datadog-core" {
         "es:ListTags",
         "es:ListDomainNames",
         "es:DescribeElasticsearchDomains",
+        "fsx:DescribeFileSystems",
         "health:DescribeEvents",
         "health:DescribeEventDetails",
         "health:DescribeAffectedEntities",
@@ -104,6 +107,7 @@ resource "aws_iam_policy" "datadog-core" {
         "logs:PutSubscriptionFilter",
         "logs:DeleteSubscriptionFilter",
         "logs:DescribeSubscriptionFilters",
+        "organizations:DescribeOrganization",
         "rds:Describe*",
         "rds:List*",
         "redshift:DescribeClusters",
@@ -140,4 +144,10 @@ resource "aws_iam_role_policy_attachment" "datadog-core-attach" {
   count      = var.enable_datadog_aws_integration ? 1 : 0
   role       = aws_iam_role.datadog-integration[0].name
   policy_arn = aws_iam_policy.datadog-core[0].arn
+}
+
+resource "aws_iam_role_policy_attachment" "datadog-core-attach-extras" {
+  for_each   = toset(var.extra_policy_arns)
+  role       = aws_iam_role.datadog-integration[0].name
+  policy_arn = each.value
 }
