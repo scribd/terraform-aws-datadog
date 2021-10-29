@@ -1,3 +1,52 @@
+# [2.5.0](https://github.com/scribd/terraform-aws-datadog/compare/v2.4.0...v2.5.0) (2021-10-01)
+
+
+### Features
+
+* added states permissions to dd module's IAM policy ([#38](https://github.com/scribd/terraform-aws-datadog/issues/38)) ([0cb8ab8](https://github.com/scribd/terraform-aws-datadog/commit/0cb8ab8af13c1f7e12b3b4e71556a4773d595ce4))
+
+# [2.4.0](https://github.com/scribd/terraform-aws-datadog/compare/v2.3.1...v2.4.0) (2021-08-25)
+
+
+### Features
+
+* attach extra iam policies ([#37](https://github.com/scribd/terraform-aws-datadog/issues/37)) ([8411cad](https://github.com/scribd/terraform-aws-datadog/commit/8411cadea20cfb5f113d9ce54c85919eff9a14e6))
+
+## [2.3.1](https://github.com/scribd/terraform-aws-datadog/compare/v2.3.0...v2.3.1) (2021-08-17)
+
+
+### Bug Fixes
+
+* Merge pull request [#35](https://github.com/scribd/terraform-aws-datadog/issues/35) from scribd/taylorsmcclure/fix-iam-policy-v2 ([7bf7868](https://github.com/scribd/terraform-aws-datadog/commit/7bf78689e90293f4c6510025cce8cc48b8a4dafd))
+
+# [2.3.0](https://github.com/scribd/terraform-aws-datadog/compare/v2.2.0...v2.3.0) (2021-07-14)
+
+
+### Features
+
+* enable support for Terraform 1.0 ([#32](https://github.com/scribd/terraform-aws-datadog/issues/32)) ([5410502](https://github.com/scribd/terraform-aws-datadog/commit/5410502ac1d9cc6dfc4b3c1c0bbe49895f802570))
+
+# [2.2.0](https://github.com/scribd/terraform-aws-datadog/compare/v2.1.0...v2.2.0) (2021-03-19)
+
+
+### Features
+
+* enable support for terraform 0.14 ([c65a0d0](https://github.com/scribd/terraform-aws-datadog/commit/c65a0d04f1e7a07cf496002fc149afb9108a5c9f))
+
+# [2.1.0](https://github.com/scribd/terraform-aws-datadog/compare/v2.0.1...v2.1.0) (2021-03-16)
+
+
+### Features
+
+* changes dd lambda default version from v3.17.0 to v3.27.0 ([8e455a8](https://github.com/scribd/terraform-aws-datadog/commit/8e455a8f217ba398a79be90a9251c59f8eb4b1fe))
+
+## [2.0.1](https://github.com/scribd/terraform-aws-datadog/compare/v2.0.0...v2.0.1) (2021-01-22)
+
+
+### Bug Fixes
+
+* Add missing cloudwatch:ListMetrics access for AWS integration ([#27](https://github.com/scribd/terraform-aws-datadog/issues/27)) ([f7c80c2](https://github.com/scribd/terraform-aws-datadog/commit/f7c80c2c7a73fa5bf1ab7132c51ff24f3703d611))
+
 # [2.0.0](https://github.com/scribd/terraform-aws-datadog/compare/v1.3.5...v2.0.0) (2020-11-06)
 
 
