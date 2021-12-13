@@ -81,4 +81,12 @@ POLICY
       days = 365 # store logs for one year
     }
   }
+
+  lifecycle_rule {
+    abort_incomplete_multipart_upload_days = 7
+    enabled                                = true
+    id                                     = "rax-cleanup-incomplete-mpu-objects"
+    tags                                   = {}
+  }
+
 }
