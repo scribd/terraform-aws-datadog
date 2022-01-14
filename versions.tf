@@ -1,5 +1,5 @@
 terraform {
-  required_version = ">= 0.13, < 1.1.0"
+  required_version = ">= 0.13, < 1.3.0"
 
   required_providers {
     datadog = {
