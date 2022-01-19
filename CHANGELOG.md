@@ -1,3 +1,15 @@
+# [2.6.0](https://github.com/scribd/terraform-aws-datadog/compare/v2.5.0...v2.6.0) (2022-01-19)
+
+
+### Bug Fixes
+
+* explicitly specify the versions for semantic-release ([#42](https://github.com/scribd/terraform-aws-datadog/issues/42)) ([09bd8b9](https://github.com/scribd/terraform-aws-datadog/commit/09bd8b96d3b78c302756e8b05baa2589b71daa4a))
+
+
+### Features
+
+* enable support for Terraform 1.1.3 ([#40](https://github.com/scribd/terraform-aws-datadog/issues/40)) ([51c5279](https://github.com/scribd/terraform-aws-datadog/commit/51c52792eed5f4b324420429677bbe9b10b0cef0))
+
 # [2.5.0](https://github.com/scribd/terraform-aws-datadog/compare/v2.4.0...v2.5.0) (2021-10-01)
 
 
