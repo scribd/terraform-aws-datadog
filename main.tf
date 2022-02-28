@@ -39,9 +39,9 @@ resource "aws_iam_role" "datadog-integration" {
 }
 EOF
 
-  tags = merge(local.default_tags, {
+  tags = {
     description = "This role allows the datadog AWS account to access this account for metrics collection"
-  })
+  }
 }
 
 resource "aws_iam_policy" "datadog-core" {
