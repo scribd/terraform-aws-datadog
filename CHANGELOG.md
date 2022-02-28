@@ -1,3 +1,17 @@
+# [2.7.0](https://github.com/scribd/terraform-aws-datadog/compare/v2.6.0...v2.7.0) (2022-01-19)
+
+### Bug Fixes
+
+* **MAJOR BEHAVIORAL CHANGE**: Removing explicit tag declarations and enabling the default tags to be populated from the AWS provider. The intent is to enable the implementor
+  to use https://www.hashicorp.com/blog/default-tags-in-the-terraform-aws-provider instead of explicit declarations. 
+  The knock-on effect is that if you do not specify default tags in the AWS provider and you use this module your first plan will show all the existing
+  tags you have applied will be **shown as needing to be removed**. The fix here is to add the desired tags to the AWS provider 
+
+### Features
+
+* enable support for Terraform 1.1.3 ([#40](https://github.com/scribd/terraform-aws-datadog/issues/40)) ([51c5279](https://github.com/scribd/terraform-aws-datadog/commit/51c52792eed5f4b324420429677bbe9b10b0cef0))
+
+
 # [2.6.0](https://github.com/scribd/terraform-aws-datadog/compare/v2.5.0...v2.6.0) (2022-01-19)
 
 
