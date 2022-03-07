@@ -1,3 +1,10 @@
+## [2.6.1](https://github.com/scribd/terraform-aws-datadog/compare/v2.6.0...v2.6.1) (2022-03-07)
+
+
+### Bug Fixes
+
+* restrict aws provider to <4 for this major branch ([#47](https://github.com/scribd/terraform-aws-datadog/issues/47)) ([07de45a](https://github.com/scribd/terraform-aws-datadog/commit/07de45adb3ff85fc925a9066dc581248f151fb49))
+
 # [2.6.0](https://github.com/scribd/terraform-aws-datadog/compare/v2.5.0...v2.6.0) (2022-01-19)
 
 
