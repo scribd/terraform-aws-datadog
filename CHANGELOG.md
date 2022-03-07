@@ -1,3 +1,10 @@
+# [2.7.0](https://github.com/scribd/terraform-aws-datadog/compare/v2.6.1...v2.7.0) (2022-03-07)
+
+
+### Features
+
+* enable support for Datadog provider 3.x ([e42de0e](https://github.com/scribd/terraform-aws-datadog/commit/e42de0e3ee6217db29251630370244e25debed6b))
+
 ## [2.6.1](https://github.com/scribd/terraform-aws-datadog/compare/v2.6.0...v2.6.1) (2022-03-07)
 
 
