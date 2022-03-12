@@ -25,48 +25,46 @@ locals {
   elb_logs_s3_bucket = "${var.elb_logs_bucket_prefix}-${var.namespace}-${var.env}-elb-logs"
 }
 
+data aws_iam_policy_document "elb_logs" {
+  statement {
+    actions = [
+      "s3:PutObject"
+    ]
+    resources = [
+      "arn:aws:s3:::${local.elb_logs_s3_bucket}/*",
+    ]
+    principals {
+      type        = "AWS"
+      identifiers = [data.aws_elb_service_account.main.arn]
+    }
+    effect = "Allow"
+  }
+}
+
 resource "aws_s3_bucket" "elb_logs" {
   count  = var.create_elb_logs_bucket ? 1 : 0
   bucket = local.elb_logs_s3_bucket
-  acl    = "private"
-  policy = <<POLICY
-{
-  "Id": "Policy",
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Action": [
-        "s3:PutObject"
-      ],
-      "Effect": "Allow",
-      "Resource": "arn:aws:s3:::${local.elb_logs_s3_bucket}/*",
-      "Principal": {
-        "AWS": [
-          "${data.aws_elb_service_account.main.arn}"
-        ]
-      }
-    }
-  ]
 }
-POLICY
 
-  server_side_encryption_configuration {
-    rule {
-      apply_server_side_encryption_by_default {
-        sse_algorithm = "AES256"
-      }
-    }
-  }
+resource "aws_s3_bucket_policy" "elb_logs" {
+  count  = var.create_elb_logs_bucket ? 1 : 0
+  bucket = aws_s3_bucket.elb_logs[0].id
+  policy = data.aws_iam_policy_document.elb_logs.json
+}
 
-  lifecycle_rule {
-    id      = "log"
-    enabled = true
+resource "aws_s3_bucket_acl" "elb_logs" {
+  count  = var.create_elb_logs_bucket ? 1 : 0
+  bucket = aws_s3_bucket.elb_logs[0].id
+  acl    = "private"
+}
 
-    tags = {
-      "rule"      = "log"
-      "autoclean" = "true"
-    }
+resource "aws_s3_bucket_lifecycle_configuration" "elb_logs" {
+  count  = var.create_elb_logs_bucket ? 1 : 0
+  bucket = aws_s3_bucket.elb_logs[0].id
 
+  # Remove old versions of images after 15 days
+  rule {
+    id = "log"
     transition {
       days          = 30
       storage_class = "STANDARD_IA" # or "ONEZONE_IA"
@@ -79,6 +77,18 @@ POLICY
 
     expiration {
       days = 365 # store logs for one year
+    }
+    status = "Enabled"
+  }
+}
+
+resource "aws_s3_bucket_server_side_encryption_configuration" "elb_logs" {
+  count  = var.create_elb_logs_bucket ? 1 : 0
+  bucket = aws_s3_bucket.elb_logs[0].id
+
+  rule {
+    apply_server_side_encryption_by_default {
+      sse_algorithm = "AES256"
     }
   }
 }
