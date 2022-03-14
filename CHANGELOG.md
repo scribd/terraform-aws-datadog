@@ -1,3 +1,10 @@
+# [2.8.0-alpha.1](https://github.com/scribd/terraform-aws-datadog/compare/v2.7.0...v2.8.0-alpha.1) (2022-03-14)
+
+
+### Features
+
+* enable support for aws provider 4.0+ ([c95490a](https://github.com/scribd/terraform-aws-datadog/commit/c95490afa68fc76dea46f91a4a4e6a29998a6903)), closes [/datatracker.ietf.org/doc/html/rfc2616#section-9](https://github.com//datatracker.ietf.org/doc/html/rfc2616/issues/section-9)
+
 # [2.7.0](https://github.com/scribd/terraform-aws-datadog/compare/v2.6.1...v2.7.0) (2022-03-07)
 
 
