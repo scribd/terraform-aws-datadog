@@ -1,3 +1,15 @@
+# [3.0.0](https://github.com/scribd/terraform-aws-datadog/compare/v2.7.0...v3.0.0) (2022-04-05)
+
+
+* feat!: enable support for aws provider 4.0+ (#49) ([5bc98cb](https://github.com/scribd/terraform-aws-datadog/commit/5bc98cb56b7dd1b697f3bfa64251515d8e8ff61c)), closes [#49](https://github.com/scribd/terraform-aws-datadog/issues/49)
+
+
+### BREAKING CHANGES
+
+* This release drops support for AWS provider <4.0
+
+When updating to this version, the diff will show each of the new resources as needing to be created. However, each of the new aws_s3_bucket_* resources relies on S3 API calls that utilize a PUT action in order to modify the target S3 bucket. Because these API calls adhere to standard HTTP methods for REST APIs, they should handle situations where the target configuration already exists (as noted in the HTTP RFC). Given that this is the case, it's not strictly necessary to import any new aws_s3_bucket_* resources that are a one-to-one translation from previous versions of the AWS provider -- on the next terraform apply, they'll attempt the PUT, and update the state with the results as necessary.
+
 # [2.7.0](https://github.com/scribd/terraform-aws-datadog/compare/v2.6.1...v2.7.0) (2022-03-07)
 
 
