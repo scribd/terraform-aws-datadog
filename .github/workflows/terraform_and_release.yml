@@ -33,19 +33,18 @@ jobs:
       - run: terraform validate
 
   release:
-   if: github.event_name == 'push'
-   needs: terraform
-   runs-on: ubuntu-latest
-
-   steps:
-   - uses: actions/checkout@v2
-   - name: Semantic Release
-     id: semantic
-     uses: cycjimmy/semantic-release-action@v2
-     env:
-       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-     with:
-       semantic_version: 17
-       extra_plugins: |
-         @semantic-release/changelog
-         @semantic-release/git
+    if: github.event_name == 'push'
+    needs: terraform
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Semantic Release
+      id: semantic
+      uses: cycjimmy/semantic-release-action@v2
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        semantic_version: 19
+        extra_plugins: |
+          @semantic-release/changelog@6
+          @semantic-release/git@10

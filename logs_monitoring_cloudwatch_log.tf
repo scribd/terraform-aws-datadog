@@ -7,7 +7,7 @@ resource "aws_cloudwatch_log_subscription_filter" "test_lambdafunction_logfilter
   distribution    = "Random"
 }
 
-resource aws_lambda_permission "allow_cloudwatch_logs_to_call_dd_lambda_handler" {
+resource "aws_lambda_permission" "allow_cloudwatch_logs_to_call_dd_lambda_handler" {
   count         = length(var.cloudwatch_log_groups)
   statement_id  = "${replace(var.cloudwatch_log_groups[count.index], "/", "_")}-AllowExecutionFromCloudWatchLogs"
   action        = "lambda:InvokeFunction"
