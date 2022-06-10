@@ -91,12 +91,4 @@ resource "aws_s3_bucket_server_side_encryption_configuration" "elb_logs" {
       sse_algorithm = "AES256"
     }
   }
-
-  lifecycle_rule {
-    abort_incomplete_multipart_upload_days = 7
-    enabled                                = true
-    id                                     = "rax-cleanup-incomplete-mpu-objects"
-    tags                                   = {}
-  }
-
 }
