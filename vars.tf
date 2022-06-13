@@ -87,6 +87,12 @@ variable "filter_tags" {
   default     = []
 }
 
+variable "host_tags" {
+  description = "Array of tags (in the form key:value) defines a filter that Datadog use when collecting metrics. Wildcards, such as ? (for single characters) and * (for multiple characters) can also be used. Only hosts that match one of the defined tags will be imported into Datadog. The rest will be ignored."
+  type        = list(string)
+  default     = []
+}
+
 variable "extra_policy_arns" {
   description = "Extra policy arns to attach to the datadog-integration-role"
   type        = list(string)
