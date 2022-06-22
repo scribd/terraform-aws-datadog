@@ -12,11 +12,12 @@ resource "datadog_integration_aws" "core" {
   filter_tags                      = var.filter_tags
 }
 
-resource "datadog_integration_aws_tag_filter" "rds-tag-filters" {
-  account_id     = var.aws_account_id
-  namespace      = "rds"
-  tag_filter_str = "environment:*-prod"
-}
+# resource "datadog_integration_aws_tag_filter" "rds-tag-filters" {
+#   count      = var.enable_datadog_aws_integration ? 1 : 0
+#   account_id     = var.aws_account_id
+#   namespace      = "rds"
+#   tag_filter_str = "environment:*-prod"
+# }
 
 
 resource "aws_iam_role" "datadog-integration" {
