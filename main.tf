@@ -81,6 +81,8 @@ resource "aws_iam_policy" "datadog-core" {
         "ec2:Describe*",
         "ec2:DescribeInstanceStatus",
         "ec2:DescribeInstances",
+        "eks:Describe*",
+        "eks:List*",
         "ecs:Describe*",
         "ecs:List*",
         "elasticache:Describe*",
