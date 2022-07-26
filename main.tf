@@ -31,7 +31,7 @@ resource "aws_iam_role" "datadog-integration" {
     {
       "Effect": "Allow",
       "Principal": {
-        "AWS": ["arn:aws:iam::464622532012:root","arn:aws:iam::777909771556:root","arn:aws:iam::359939295825:root"]
+        "AWS": "arn:aws:iam::464622532012:root"
       },
       "Action": "sts:AssumeRole",
       "Condition": {
