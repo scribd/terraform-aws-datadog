@@ -47,6 +47,14 @@ variable "env" {
   type        = string
   default     = ""
 }
+variable "cspm_resource_collection_enabled" {
+  description = "Whether Datadog collects cloud security posture management resources from your AWS account"
+  type        = string
+}
+variable "resource_collection_enabled" {
+  description = "Whether Datadog collects a standard set of resources from your AWS account."
+  type        = string
+}
 variable "account_specific_namespace_rules" {
   description = "account_specific_namespace_rules argument for datadog_integration_aws resource"
   type        = map(any)

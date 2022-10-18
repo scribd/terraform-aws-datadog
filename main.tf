@@ -10,6 +10,8 @@ resource "datadog_integration_aws" "core" {
   account_specific_namespace_rules = var.account_specific_namespace_rules
   excluded_regions                 = var.excluded_regions
   filter_tags                      = var.filter_tags
+  resource_collection_enabled      = true
+  cspm_resource_collection_enabled = true
 }
 
 # resource "datadog_integration_aws_tag_filter" "rds-tag-filters" {
