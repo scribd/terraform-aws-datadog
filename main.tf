@@ -49,6 +49,10 @@ EOF
   })
 }
 
+data "aws_iam_policy" "securityAudit" {
+  arn = "arn:aws:iam::aws:policy/SecurityAudit"
+}
+
 resource "aws_iam_policy" "datadog-core" {
   count       = var.enable_datadog_aws_integration ? 1 : 0
   name        = "datadog-core-integration"
@@ -144,6 +148,12 @@ resource "aws_iam_policy" "datadog-core" {
   ]
 }
 EOF
+}
+
+resource "aws_iam_role_policy_attachment" "cpsm-resource-collection" {
+  count      = var.enable_datadog_aws_integration ? 1 : 0
+  role       = aws_iam_role.datadog-integration[0].name
+  policy_arn = data.aws_iam_policy.securityAudit[0].arn
 }
 
 resource "aws_iam_role_policy_attachment" "datadog-core-attach" {
