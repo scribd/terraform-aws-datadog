@@ -10,11 +10,11 @@ resource "datadog_integration_aws" "core" {
   account_specific_namespace_rules = var.account_specific_namespace_rules
   excluded_regions                 = var.excluded_regions
   filter_tags                      = var.filter_tags
-  resource_collection_enabled      = true
-  cspm_resource_collection_enabled = true
+  resource_collection_enabled      = var.resource_collection_enabled
+  cspm_resource_collection_enabled = var.cspm_resource_collection_enabled
 }
 
-# resource "datadog_integration_aws_tag_filter" "rds-tag-filters" {
+# resource "datadog_integration_aws_tag_filter" "rds-tag-filters"{
 #   count      = var.enable_datadog_aws_integration ? 1 : 0
 #   account_id     = var.aws_account_id
 #   namespace      = "rds"
@@ -87,8 +87,6 @@ resource "aws_iam_policy" "datadog-core" {
         "ec2:Describe*",
         "ec2:DescribeInstanceStatus",
         "ec2:DescribeInstances",
-        "eks:Describe*",
-        "eks:List*",
         "ecs:Describe*",
         "ecs:List*",
         "elasticache:Describe*",
@@ -155,7 +153,7 @@ EOF
 resource "aws_iam_role_policy_attachment" "cpsm-resource-collection" {
   count      = var.enable_datadog_aws_integration ? 1 : 0
   role       = aws_iam_role.datadog-integration[0].name
-  policy_arn = data.aws_iam_policy.securityAudit[0].arn
+  policy_arn = data.aws_iam_policy.securityAudit.arn
 }
 
 resource "aws_iam_role_policy_attachment" "datadog-core-attach" {
