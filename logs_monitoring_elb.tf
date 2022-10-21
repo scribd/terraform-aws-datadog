@@ -19,7 +19,9 @@ resource "aws_s3_bucket_notification" "elblog-notification-dd-log" {
   }
 }
 
-data "aws_elb_service_account" "main" {}
+data "aws_elb_service_account" "main" {
+  
+}
 
 locals {
   elb_logs_s3_bucket = "${var.elb_logs_bucket_prefix}-${var.namespace}-${var.env}-elb-logs"
