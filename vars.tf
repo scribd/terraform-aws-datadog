@@ -51,6 +51,10 @@ variable "cspm_resource_collection_enabled" {
   description = "Whether Datadog collects cloud security posture management resources from your AWS account"
   type        = string
 }
+variable "metrics_collection_enabled" {
+  description = "Whether Datadog collects metrics for this AWS account."
+  type        = string
+}
 variable "resource_collection_enabled" {
   description = "Whether Datadog collects a standard set of resources from your AWS account."
   type        = string

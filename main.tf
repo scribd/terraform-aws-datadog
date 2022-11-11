@@ -11,6 +11,7 @@ resource "datadog_integration_aws" "core" {
   excluded_regions                 = var.excluded_regions
   filter_tags                      = var.filter_tags
   resource_collection_enabled      = var.resource_collection_enabled
+  metrics_collection_enabled       = var.metrics_collection_enabled 
   cspm_resource_collection_enabled = var.cspm_resource_collection_enabled
 }
 
@@ -118,6 +119,7 @@ resource "aws_iam_policy" "datadog-core" {
         "logs:DeleteSubscriptionFilter",
         "logs:DescribeSubscriptionFilters",
         "organizations:DescribeOrganization",
+        "organizations:ListRoots",
         "rds:Describe*",
         "rds:List*",
         "redshift:DescribeClusters",
@@ -129,6 +131,7 @@ resource "aws_iam_policy" "datadog-core" {
         "s3:GetBucketTagging",
         "s3:ListAllMyBuckets",
         "s3:PutBucketNotification",
+        "backup:ListBackupPlans",
         "ses:Get*",
         "sns:List*",
         "sns:Publish",
