@@ -11,7 +11,7 @@ resource "datadog_integration_aws" "core" {
   excluded_regions                 = var.excluded_regions
   filter_tags                      = var.filter_tags
   resource_collection_enabled      = var.resource_collection_enabled
-  metrics_collection_enabled       = var.metrics_collection_enabled 
+  metrics_collection_enabled       = var.metrics_collection_enabled
   cspm_resource_collection_enabled = var.cspm_resource_collection_enabled
 }
 
@@ -56,6 +56,7 @@ data "aws_iam_policy" "securityAudit" {
   arn = "arn:aws:iam::aws:policy/SecurityAudit"
 }
 
+#tfsec:ignore:aws-iam-no-policy-wildcards
 resource "aws_iam_policy" "datadog-core" {
   count       = var.enable_datadog_aws_integration ? 1 : 0
   name        = "datadog-core-integration"

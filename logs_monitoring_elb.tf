@@ -20,14 +20,14 @@ resource "aws_s3_bucket_notification" "elblog-notification-dd-log" {
 }
 
 data "aws_elb_service_account" "main" {
-  
+
 }
 
 locals {
   elb_logs_s3_bucket = "${var.elb_logs_bucket_prefix}-${var.namespace}-${var.env}-elb-logs"
 }
 
-data aws_iam_policy_document "elb_logs" {
+data "aws_iam_policy_document" "elb_logs" {
   statement {
     actions = [
       "s3:PutObject"
@@ -43,9 +43,22 @@ data aws_iam_policy_document "elb_logs" {
   }
 }
 
+#tfsec:ignore:aws-s3-enable-bucket-logging tfsec:ignore:aws-s3-specify-public-access-block tfsec:ignore:aws-s3-no-public-buckets  tfsec:ignore:aws-s3-ignore-public-acls tfsec:ignore:aws-s3-block-public-policy tfsec:ignore:aws-s3-block-public-acls
 resource "aws_s3_bucket" "elb_logs" {
   count  = var.create_elb_logs_bucket ? 1 : 0
   bucket = local.elb_logs_s3_bucket
+  acl    = "private"
+  versioning {
+    enabled = true
+  }
+}
+
+resource "aws_s3_bucket_public_access_block" "elb_logs" {
+  bucket                  = aws_s3_bucket.elb_logs[0].id
+  restrict_public_buckets = true
+  block_public_acls       = true
+  block_public_policy     = true
+  ignore_public_acls      = true
 }
 
 resource "aws_s3_bucket_policy" "elb_logs" {
@@ -84,6 +97,7 @@ resource "aws_s3_bucket_lifecycle_configuration" "elb_logs" {
   }
 }
 
+#tfsec:ignore:aws-s3-encryption-customer-key
 resource "aws_s3_bucket_server_side_encryption_configuration" "elb_logs" {
   count  = var.create_elb_logs_bucket ? 1 : 0
   bucket = aws_s3_bucket.elb_logs[0].id

@@ -18,6 +18,7 @@ resource "aws_cloudformation_stack" "datadog-forwarder" {
   }
 }
 
+#tfsec:ignore:aws-ssm-secret-use-customer-key
 resource "aws_secretsmanager_secret" "datadog_api_key" {
   name_prefix = "${local.stack_prefix}datadog-api-key"
   description = "Datadog API Key"
