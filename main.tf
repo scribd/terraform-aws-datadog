@@ -15,6 +15,11 @@ resource "datadog_integration_aws" "core" {
   cspm_resource_collection_enabled = var.cspm_resource_collection_enabled
 }
 
+resource "datadog_integration_aws_lambda_arn" "main_collector" {
+  account_id = var.aws_account_id
+  lambda_arn = aws_cloudformation_stack.datadog-forwarder.outputs.DatadogForwarderArn
+}
+
 # resource "datadog_integration_aws_tag_filter" "rds-tag-filters"{
 #   count      = var.enable_datadog_aws_integration ? 1 : 0
 #   account_id     = var.aws_account_id
