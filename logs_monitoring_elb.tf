@@ -47,9 +47,16 @@ data "aws_iam_policy_document" "elb_logs" {
 resource "aws_s3_bucket" "elb_logs" {
   count  = var.create_elb_logs_bucket ? 1 : 0
   bucket = local.elb_logs_s3_bucket
-  acl    = "private"
-  versioning {
-    enabled = true
+
+}
+
+
+
+resource "aws_s3_bucket_versioning" "elb_logs" {
+  count  = var.create_elb_logs_bucket ? 1 : 0
+  bucket = aws_s3_bucket.elb_logs[0].id
+  versioning_configuration {
+    status = "Enabled"
   }
 }
 
