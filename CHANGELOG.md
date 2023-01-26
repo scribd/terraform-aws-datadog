@@ -1,3 +1,10 @@
+# [3.1.0](https://github.com/scribd/terraform-aws-datadog/compare/v3.0.0...v3.1.0) (2023-01-26)
+
+
+### Features
+
+* enable support for Terraform 1.3.x ([#51](https://github.com/scribd/terraform-aws-datadog/issues/51)) ([1d4c786](https://github.com/scribd/terraform-aws-datadog/commit/1d4c786b62206133408795d25ab94f7d707857ab))
+
 # [3.0.0](https://github.com/scribd/terraform-aws-datadog/compare/v2.7.0...v3.0.0) (2022-04-05)
 
 
