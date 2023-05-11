@@ -25,7 +25,7 @@ locals {
   elb_logs_s3_bucket = "${var.elb_logs_bucket_prefix}-${var.namespace}-${var.env}-elb-logs"
 }
 
-data aws_iam_policy_document "elb_logs" {
+data "aws_iam_policy_document" "elb_logs" {
   statement {
     actions = [
       "s3:PutObject"

@@ -1,14 +1,14 @@
-variable dd_api_key {
+variable "dd_api_key" {
   type    = string
   default = "1234567890"
 }
 
-variable dd_app_key {
+variable "dd_app_key" {
   type    = string
   default = "1234567890"
 }
 
-variable aws_region {
+variable "aws_region" {
   type    = string
   default = "us-west-2"
 }
