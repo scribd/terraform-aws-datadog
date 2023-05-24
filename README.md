@@ -24,7 +24,7 @@ There are two main components:
 ```
 module "datadog" {
   source                = "scribd/datadog/aws"
-  version               = "~>1"
+  version               = "~>3"
   aws_account_id        = data.aws_caller_identity.current.account_id
   datadog_api_key       = var.datadog_api_key
   env                   = "prod"
@@ -53,7 +53,7 @@ Creating this module in multiple terraform stacks will cause conflicts.
 ```
 module "datadog" {
   source                         = "scribd/datadog/aws"
-  version                        = "~>1"
+  version                        = "~>3"
   datadog_api_key                = var.datadog_api_key
   create_elb_logs_bucket         = false
   enable_datadog_aws_integration = false
@@ -72,7 +72,7 @@ Cloudwatch log sync are namspaced by module.
 
 ## Module Versions
 
-**Version 3.x.x** and greater require terraform version > 0.13.x and AWS provider > 4.0.0.
+**Version 3.x.x** and greater require terraform version > 0.13.x and AWS provider > 4.0.0.  
 **Version 2.x.x** and greater require terraform version > 0.13.x and AWS provider < 4.0.0.  
 **Version 1.x.x** is the latest version that support terraform version 0.12.x and AWS provider < 4.0.0.  
 When using this module, please be sure to [pin to a compatible version](https://www.terraform.io/docs/configuration/modules.html#module-versions).
