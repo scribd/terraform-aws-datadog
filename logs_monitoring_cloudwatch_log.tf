@@ -9,7 +9,7 @@ resource "aws_cloudwatch_log_subscription_filter" "test_lambdafunction_logfilter
 
 resource "aws_lambda_permission" "allow_cloudwatch_logs_to_call_dd_lambda_handler" {
   count         = length(var.cloudwatch_log_groups)
-  statement_id  = "${substr(replace(var.cloudwatch_log_groups[count.index], "/", "_"), 0, 60)}-AllowExecutionFromCloudWatchLogs"
+  statement_id  = "${substr(replace(var.cloudwatch_log_groups[count.index], "/", "_"), 0, 67)}-AllowExecutionFromCloudWatchLogs"
   action        = "lambda:InvokeFunction"
   function_name = aws_cloudformation_stack.datadog-forwarder.outputs.DatadogForwarderArn
   principal     = "logs.${var.aws_region}.amazonaws.com"
