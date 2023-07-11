@@ -1,3 +1,10 @@
+## [3.1.1-alpha.2](https://github.com/scribd/terraform-aws-datadog/compare/v3.1.1-alpha.1...v3.1.1-alpha.2) (2023-07-11)
+
+
+### Bug Fixes
+
+* limit statement_id length to 100 chars ([6c32ece](https://github.com/scribd/terraform-aws-datadog/commit/6c32ece36e55a34cad12d55f152232805c6da9e0))
+
 ## [3.1.1-alpha.1](https://github.com/scribd/terraform-aws-datadog/compare/v3.1.0...v3.1.1-alpha.1) (2023-07-11)
 
 
