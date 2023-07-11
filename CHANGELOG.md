@@ -1,3 +1,10 @@
+## [3.1.1-alpha.1](https://github.com/scribd/terraform-aws-datadog/compare/v3.1.0...v3.1.1-alpha.1) (2023-07-11)
+
+
+### Bug Fixes
+
+* Remove private ACL terraform resource. ([b50ccb2](https://github.com/scribd/terraform-aws-datadog/commit/b50ccb24f9367a9f71c17aa0b3324f23b371ff3a))
+
 # [3.1.0](https://github.com/scribd/terraform-aws-datadog/compare/v3.0.0...v3.1.0) (2023-01-26)
 
 
