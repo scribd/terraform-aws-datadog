@@ -52,12 +52,6 @@ resource "aws_s3_bucket_policy" "elb_logs" {
   policy = data.aws_iam_policy_document.elb_logs.json
 }
 
-resource "aws_s3_bucket_acl" "elb_logs" {
-  count  = var.create_elb_logs_bucket ? 1 : 0
-  bucket = aws_s3_bucket.elb_logs[0].id
-  acl    = "private"
-}
-
 resource "aws_s3_bucket_lifecycle_configuration" "elb_logs" {
   count  = var.create_elb_logs_bucket ? 1 : 0
   bucket = aws_s3_bucket.elb_logs[0].id
