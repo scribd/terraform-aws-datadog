@@ -1,3 +1,10 @@
+# [3.2.0](https://github.com/scribd/terraform-aws-datadog/compare/v3.1.0...v3.2.0) (2023-07-17)
+
+
+### Features
+
+* remove terraform resource for ELB bucket ACL configuration (terraform-only change) ([fc770ec](https://github.com/scribd/terraform-aws-datadog/commit/fc770ec366c48ae3f7e3eccbb57135e6fe82a8b0))
+
 # [3.1.0](https://github.com/scribd/terraform-aws-datadog/compare/v3.0.0...v3.1.0) (2023-01-26)
 
 
