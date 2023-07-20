@@ -1,3 +1,10 @@
+## [3.2.1](https://github.com/scribd/terraform-aws-datadog/compare/v3.2.0...v3.2.1) (2023-07-20)
+
+
+### Bug Fixes
+
+* Truncate `statement_id` length  after 100 characters ([#54](https://github.com/scribd/terraform-aws-datadog/issues/54)) ([3f98ed3](https://github.com/scribd/terraform-aws-datadog/commit/3f98ed333a084b350f974ca494e84b5d9e5ec373))
+
 # [3.2.0](https://github.com/scribd/terraform-aws-datadog/compare/v3.1.0...v3.2.0) (2023-07-17)
 
 
