@@ -52,6 +52,9 @@ resource "aws_s3_bucket" "elb_logs" {
 
 
 
+
+
+
 resource "aws_s3_bucket_versioning" "elb_logs" {
   count  = var.create_elb_logs_bucket ? 1 : 0
   bucket = aws_s3_bucket.elb_logs[0].id
@@ -102,6 +105,25 @@ resource "aws_s3_bucket_lifecycle_configuration" "elb_logs" {
     }
     status = "Enabled"
   }
+
+  rule {
+    id     = "rax-cleanup-incomplete-mpu-objects"
+    status = "Enabled"
+    abort_incomplete_multipart_upload {
+      days_after_initiation = 7
+    }
+  }
+  rule {
+    id     = "elb-logs-cleanup"
+    status = "Enabled"
+    expiration {
+      days = 365
+    }
+    filter {
+      prefix = "AWSLogs/"
+    }
+  }
+
 }
 
 #tfsec:ignore:aws-s3-encryption-customer-key
