@@ -1,3 +1,10 @@
+## [3.2.2](https://github.com/scribd/terraform-aws-datadog/compare/v3.2.1...v3.2.2) (2023-08-16)
+
+
+### Bug Fixes
+
+* enforce only minimum version of terraform ([7195f64](https://github.com/scribd/terraform-aws-datadog/commit/7195f64ea19891492fb1356e7cfc3664c3c7441c)), closes [#55](https://github.com/scribd/terraform-aws-datadog/issues/55)
+
 ## [3.2.1](https://github.com/scribd/terraform-aws-datadog/compare/v3.2.0...v3.2.1) (2023-07-20)
 
 
