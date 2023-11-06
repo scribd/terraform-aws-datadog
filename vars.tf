@@ -14,10 +14,21 @@ variable "cloudtrail_bucket_id" {
   default     = ""
 }
 variable "cloudtrail_bucket_arn" {
-  description = "The Cloudtrail bucket ID. Use only from org master account"
+  description = "The Cloudtrail bucket ARN. Use only from org master account"
   type        = string
   default     = ""
 }
+variable "waf_bucket_id" {
+  description = "The WAF bucket ID. Use only from org master account."
+  type        = string
+  default     = ""
+}
+variable "waf_bucket_arn" {
+  description = "The WAF bucket ARN. Use only from org master account"
+  type        = string
+  default     = ""
+}
+
 variable "datadog_api_key" {
   description = "The API key for the datadog integration."
   type        = string
