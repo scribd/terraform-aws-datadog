@@ -5,12 +5,28 @@ resource "datadog_integration_aws" "core" {
   account_id = var.aws_account_id
   role_name  = "datadog-integration-role"
 
-  host_tags = var.filter_tags
+  host_tags = var.host_tags
 
   account_specific_namespace_rules = var.account_specific_namespace_rules
   excluded_regions                 = var.excluded_regions
   filter_tags                      = var.filter_tags
+  resource_collection_enabled      = var.resource_collection_enabled
+  metrics_collection_enabled       = var.metrics_collection_enabled
+  cspm_resource_collection_enabled = var.cspm_resource_collection_enabled
 }
+
+resource "datadog_integration_aws_lambda_arn" "main_collector" {
+  account_id = var.aws_account_id
+  lambda_arn = aws_cloudformation_stack.datadog-forwarder.outputs.DatadogForwarderArn
+}
+
+# resource "datadog_integration_aws_tag_filter" "rds-tag-filters"{
+#   count      = var.enable_datadog_aws_integration ? 1 : 0
+#   account_id     = var.aws_account_id
+#   namespace      = "rds"
+#   tag_filter_str = "environment:*-prod"
+# }
+
 
 resource "aws_iam_role" "datadog-integration" {
   count = var.enable_datadog_aws_integration ? 1 : 0
@@ -41,6 +57,11 @@ EOF
   })
 }
 
+data "aws_iam_policy" "securityAudit" {
+  arn = "arn:aws:iam::aws:policy/SecurityAudit"
+}
+
+#tfsec:ignore:aws-iam-no-policy-wildcards
 resource "aws_iam_policy" "datadog-core" {
   count       = var.enable_datadog_aws_integration ? 1 : 0
   name        = "datadog-core-integration"
@@ -59,10 +80,9 @@ resource "aws_iam_policy" "datadog-core" {
         "cloudformation:DetectStack*",
         "cloudfront:GetDistributionConfig",
         "cloudfront:ListDistributions",
+        "cloudtrail:LookupEvents",
         "cloudtrail:DescribeTrails",
         "cloudtrail:GetTrailStatus",
-        "cloudtrail:LookupEvents",
-        "cloudwatch:ListMetrics",
         "cloudwatch:Describe*",
         "cloudwatch:Get*",
         "cloudwatch:List*",
@@ -105,6 +125,7 @@ resource "aws_iam_policy" "datadog-core" {
         "logs:DeleteSubscriptionFilter",
         "logs:DescribeSubscriptionFilters",
         "organizations:DescribeOrganization",
+        "organizations:ListRoots",
         "rds:Describe*",
         "rds:List*",
         "redshift:DescribeClusters",
@@ -116,12 +137,13 @@ resource "aws_iam_policy" "datadog-core" {
         "s3:GetBucketTagging",
         "s3:ListAllMyBuckets",
         "s3:PutBucketNotification",
+        "backup:ListBackupPlans",
         "ses:Get*",
         "sns:List*",
         "sns:Publish",
-        "sqs:ListQueues",
         "states:ListStateMachines",
         "states:DescribeStateMachine",
+        "sqs:ListQueues",
         "support:*",
         "tag:GetResources",
         "tag:GetTagKeys",
@@ -135,6 +157,12 @@ resource "aws_iam_policy" "datadog-core" {
   ]
 }
 EOF
+}
+
+resource "aws_iam_role_policy_attachment" "cpsm-resource-collection" {
+  count      = var.enable_datadog_aws_integration ? 1 : 0
+  role       = aws_iam_role.datadog-integration[0].name
+  policy_arn = data.aws_iam_policy.securityAudit.arn
 }
 
 resource "aws_iam_role_policy_attachment" "datadog-core-attach" {

@@ -14,10 +14,21 @@ variable "cloudtrail_bucket_id" {
   default     = ""
 }
 variable "cloudtrail_bucket_arn" {
-  description = "The Cloudtrail bucket ID. Use only from org master account"
+  description = "The Cloudtrail bucket ARN. Use only from org master account"
   type        = string
   default     = ""
 }
+variable "waf_bucket_id" {
+  description = "The WAF bucket ID. Use only from org master account."
+  type        = string
+  default     = ""
+}
+variable "waf_bucket_arn" {
+  description = "The WAF bucket ARN. Use only from org master account"
+  type        = string
+  default     = ""
+}
+
 variable "datadog_api_key" {
   description = "The API key for the datadog integration."
   type        = string
@@ -47,6 +58,18 @@ variable "env" {
   type        = string
   default     = ""
 }
+variable "cspm_resource_collection_enabled" {
+  description = "Whether Datadog collects cloud security posture management resources from your AWS account"
+  type        = string
+}
+variable "metrics_collection_enabled" {
+  description = "Whether Datadog collects metrics for this AWS account."
+  type        = string
+}
+variable "resource_collection_enabled" {
+  description = "Whether Datadog collects a standard set of resources from your AWS account."
+  type        = string
+}
 variable "account_specific_namespace_rules" {
   description = "account_specific_namespace_rules argument for datadog_integration_aws resource"
   type        = map(any)
@@ -55,7 +78,7 @@ variable "account_specific_namespace_rules" {
 variable "elb_logs_bucket_prefix" {
   description = "Prefix for ELB logs S3 bucket name"
   type        = string
-  default     = "awsdd"
+  default     = "datadog"
 }
 variable "log_exclude_at_match" {
   description = "Sets EXCLUDE_AT_MATCH environment variable, which allows excluding unwanted log lines"
@@ -83,6 +106,12 @@ variable "excluded_regions" {
 
 variable "filter_tags" {
   description = "Array of EC2 tags (in the form key:value) defines a filter that Datadog use when collecting metrics from EC2. Wildcards, such as ? (for single characters) and * (for multiple characters) can also be used. Only hosts that match one of the defined tags will be imported into Datadog. The rest will be ignored."
+  type        = list(string)
+  default     = []
+}
+
+variable "host_tags" {
+  description = "Array of tags (in the form key:value) defines a filter that Datadog use when collecting metrics. Wildcards, such as ? (for single characters) and * (for multiple characters) can also be used. Only hosts that match one of the defined tags will be imported into Datadog. The rest will be ignored."
   type        = list(string)
   default     = []
 }

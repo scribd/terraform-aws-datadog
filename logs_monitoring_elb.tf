@@ -19,54 +19,77 @@ resource "aws_s3_bucket_notification" "elblog-notification-dd-log" {
   }
 }
 
-data "aws_elb_service_account" "main" {}
+data "aws_elb_service_account" "main" {
+
+}
 
 locals {
   elb_logs_s3_bucket = "${var.elb_logs_bucket_prefix}-${var.namespace}-${var.env}-elb-logs"
 }
 
+data "aws_iam_policy_document" "elb_logs" {
+  statement {
+    actions = [
+      "s3:PutObject"
+    ]
+    resources = [
+      "arn:aws:s3:::${local.elb_logs_s3_bucket}/*",
+    ]
+    principals {
+      type        = "AWS"
+      identifiers = [data.aws_elb_service_account.main.arn]
+    }
+    effect = "Allow"
+  }
+}
+
+#tfsec:ignore:aws-s3-enable-bucket-logging tfsec:ignore:aws-s3-specify-public-access-block tfsec:ignore:aws-s3-no-public-buckets  tfsec:ignore:aws-s3-ignore-public-acls tfsec:ignore:aws-s3-block-public-policy tfsec:ignore:aws-s3-block-public-acls
 resource "aws_s3_bucket" "elb_logs" {
   count  = var.create_elb_logs_bucket ? 1 : 0
   bucket = local.elb_logs_s3_bucket
-  acl    = "private"
-  policy = <<POLICY
-{
-  "Id": "Policy",
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Action": [
-        "s3:PutObject"
-      ],
-      "Effect": "Allow",
-      "Resource": "arn:aws:s3:::${local.elb_logs_s3_bucket}/*",
-      "Principal": {
-        "AWS": [
-          "${data.aws_elb_service_account.main.arn}"
-        ]
-      }
-    }
-  ]
+
 }
-POLICY
 
-  server_side_encryption_configuration {
-    rule {
-      apply_server_side_encryption_by_default {
-        sse_algorithm = "AES256"
-      }
-    }
+
+
+
+
+
+resource "aws_s3_bucket_versioning" "elb_logs" {
+  count  = var.create_elb_logs_bucket ? 1 : 0
+  bucket = aws_s3_bucket.elb_logs[0].id
+  versioning_configuration {
+    status = "Enabled"
   }
+}
 
-  lifecycle_rule {
-    id      = "log"
-    enabled = true
+resource "aws_s3_bucket_public_access_block" "elb_logs" {
+  bucket                  = aws_s3_bucket.elb_logs[0].id
+  restrict_public_buckets = true
+  block_public_acls       = true
+  block_public_policy     = true
+  ignore_public_acls      = true
+}
 
-    tags = {
-      "rule"      = "log"
-      "autoclean" = "true"
-    }
+resource "aws_s3_bucket_policy" "elb_logs" {
+  count  = var.create_elb_logs_bucket ? 1 : 0
+  bucket = aws_s3_bucket.elb_logs[0].id
+  policy = data.aws_iam_policy_document.elb_logs.json
+}
 
+resource "aws_s3_bucket_acl" "elb_logs" {
+  count  = var.create_elb_logs_bucket ? 1 : 0
+  bucket = aws_s3_bucket.elb_logs[0].id
+  acl    = "private"
+}
+
+resource "aws_s3_bucket_lifecycle_configuration" "elb_logs" {
+  count  = var.create_elb_logs_bucket ? 1 : 0
+  bucket = aws_s3_bucket.elb_logs[0].id
+
+  # Remove old versions of images after 15 days
+  rule {
+    id = "log"
     transition {
       days          = 30
       storage_class = "STANDARD_IA" # or "ONEZONE_IA"
@@ -80,13 +103,37 @@ POLICY
     expiration {
       days = 365 # store logs for one year
     }
+    status = "Enabled"
   }
 
-  lifecycle_rule {
-    abort_incomplete_multipart_upload_days = 7
-    enabled                                = true
-    id                                     = "rax-cleanup-incomplete-mpu-objects"
-    tags                                   = {}
+  rule {
+    id     = "rax-cleanup-incomplete-mpu-objects"
+    status = "Enabled"
+    abort_incomplete_multipart_upload {
+      days_after_initiation = 7
+    }
+  }
+  rule {
+    id     = "elb-logs-cleanup"
+    status = "Enabled"
+    expiration {
+      days = 365
+    }
+    filter {
+      prefix = "AWSLogs/"
+    }
   }
 
+}
+
+#tfsec:ignore:aws-s3-encryption-customer-key
+resource "aws_s3_bucket_server_side_encryption_configuration" "elb_logs" {
+  count  = var.create_elb_logs_bucket ? 1 : 0
+  bucket = aws_s3_bucket.elb_logs[0].id
+
+  rule {
+    apply_server_side_encryption_by_default {
+      sse_algorithm = "AES256"
+    }
+  }
 }

@@ -1,3 +1,41 @@
+# [3.0.0](https://github.com/scribd/terraform-aws-datadog/compare/v2.7.0...v3.0.0) (2022-04-05)
+
+
+* feat!: enable support for aws provider 4.0+ (#49) ([5bc98cb](https://github.com/scribd/terraform-aws-datadog/commit/5bc98cb56b7dd1b697f3bfa64251515d8e8ff61c)), closes [#49](https://github.com/scribd/terraform-aws-datadog/issues/49)
+
+
+### BREAKING CHANGES
+
+* This release drops support for AWS provider <4.0
+
+When updating to this version, the diff will show each of the new resources as needing to be created. However, each of the new aws_s3_bucket_* resources relies on S3 API calls that utilize a PUT action in order to modify the target S3 bucket. Because these API calls adhere to standard HTTP methods for REST APIs, they should handle situations where the target configuration already exists (as noted in the HTTP RFC). Given that this is the case, it's not strictly necessary to import any new aws_s3_bucket_* resources that are a one-to-one translation from previous versions of the AWS provider -- on the next terraform apply, they'll attempt the PUT, and update the state with the results as necessary.
+
+# [2.7.0](https://github.com/scribd/terraform-aws-datadog/compare/v2.6.1...v2.7.0) (2022-03-07)
+
+
+### Features
+
+* enable support for Datadog provider 3.x ([e42de0e](https://github.com/scribd/terraform-aws-datadog/commit/e42de0e3ee6217db29251630370244e25debed6b))
+
+## [2.6.1](https://github.com/scribd/terraform-aws-datadog/compare/v2.6.0...v2.6.1) (2022-03-07)
+
+
+### Bug Fixes
+
+* restrict aws provider to <4 for this major branch ([#47](https://github.com/scribd/terraform-aws-datadog/issues/47)) ([07de45a](https://github.com/scribd/terraform-aws-datadog/commit/07de45adb3ff85fc925a9066dc581248f151fb49))
+
+# [2.6.0](https://github.com/scribd/terraform-aws-datadog/compare/v2.5.0...v2.6.0) (2022-01-19)
+
+
+### Bug Fixes
+
+* explicitly specify the versions for semantic-release ([#42](https://github.com/scribd/terraform-aws-datadog/issues/42)) ([09bd8b9](https://github.com/scribd/terraform-aws-datadog/commit/09bd8b96d3b78c302756e8b05baa2589b71daa4a))
+
+
+### Features
+
+* enable support for Terraform 1.1.3 ([#40](https://github.com/scribd/terraform-aws-datadog/issues/40)) ([51c5279](https://github.com/scribd/terraform-aws-datadog/commit/51c52792eed5f4b324420429677bbe9b10b0cef0))
+
 # [2.5.0](https://github.com/scribd/terraform-aws-datadog/compare/v2.4.0...v2.5.0) (2021-10-01)
 
 
