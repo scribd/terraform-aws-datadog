@@ -1,3 +1,10 @@
+## [3.0.1](https://github.com/YouLend/terraform-aws-datadog/compare/v3.0.0...v3.0.1) (2024-01-22)
+
+
+### Bug Fixes
+
+* 25396-LambdaDatadogUpgrade: upgrading the cf stack for datadog ([fb77865](https://github.com/YouLend/terraform-aws-datadog/commit/fb7786581b3921e008cd7964cbf3beceb4c5f589))
+
 # [3.0.0](https://github.com/YouLend/terraform-aws-datadog/compare/v2.5.0...v3.0.0) (2023-11-08)
 
 
