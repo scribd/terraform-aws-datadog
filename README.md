@@ -96,6 +96,8 @@ Semantic-release is configured with the [default branch workflow](https://semant
 
 For this project, releases will be cut from master as features and bugs are developed.
 
+In commit message summary, use `feat:` to cut new minor version, use `fix:` to cut new patch version. `BREAKING CHANGE:` in body of the commit message for new major version.
+
 
 ### Maintainers
 - [Jim](https://github.com/jim80net)
