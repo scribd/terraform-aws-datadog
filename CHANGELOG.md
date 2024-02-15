@@ -1,3 +1,10 @@
+# [3.3.0](https://github.com/scribd/terraform-aws-datadog/compare/v3.2.2...v3.3.0) (2024-02-15)
+
+
+### Features
+
+* Switch to for_each for log forwarding resources ([0781beb](https://github.com/scribd/terraform-aws-datadog/commit/0781bebb3ef64c7923ef064c90f120ae4b2005a3))
+
 ## [3.2.2](https://github.com/scribd/terraform-aws-datadog/compare/v3.2.1...v3.2.2) (2023-08-16)
 
 
