@@ -1,3 +1,10 @@
+## [3.3.1](https://github.com/scribd/terraform-aws-datadog/compare/v3.3.0...v3.3.1) (2024-02-19)
+
+
+### Bug Fixes
+
+* bump datadog forwarder version ([3678529](https://github.com/scribd/terraform-aws-datadog/commit/367852991bbdccc8ee48942be9a5e8a9f2c9f28c))
+
 # [3.3.0](https://github.com/scribd/terraform-aws-datadog/compare/v3.2.2...v3.3.0) (2024-02-15)
 
 
