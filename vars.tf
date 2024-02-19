@@ -66,7 +66,7 @@ variable "log_exclude_at_match" {
 variable "dd_forwarder_template_version" {
   description = "Sets Datadog Forwarder version to use"
   type        = string
-  default     = "3.27.0"
+  default     = "3.100.0"
 }
 
 variable "dd_forwarder_dd_site" {
