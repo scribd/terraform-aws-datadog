@@ -7,11 +7,12 @@ resource "aws_cloudwatch_log_subscription_filter" "test_lambdafunction_logfilter
   distribution    = "Random"
 }
 
+// we're using wildcard sources instead of making separate grant per source
+// in order to avoid hitting limit of 20KB per lambda function's aggregated policy size
 resource "aws_lambda_permission" "allow_cloudwatch_logs_to_call_dd_lambda_handler" {
-  for_each      = { for lg in var.cloudwatch_log_groups : lg => lg }
-  statement_id  = "${substr(replace(each.value, "/", "_"), 0, 67)}-AllowExecutionFromCloudWatchLogs"
+  statement_id  = "AllowExecutionFromCloudWatchLogs"
   action        = "lambda:InvokeFunction"
   function_name = aws_cloudformation_stack.datadog-forwarder.outputs.DatadogForwarderArn
   principal     = "logs.${var.aws_region}.amazonaws.com"
-  source_arn    = "arn:aws:logs:${var.aws_region}:${var.aws_account_id}:log-group:${each.value}:*"
+  source_arn    = "arn:aws:logs:${var.aws_region}:${var.aws_account_id}:log-group:*"
 }
