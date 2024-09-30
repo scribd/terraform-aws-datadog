@@ -5,4 +5,5 @@ locals {
     namespace = var.namespace
     terraform = "true"
   }
+  log_groups_to_use = length(var.log_group_prefixes) > 0 ? var.log_group_prefixes : var.cloudwatch_log_groups
 }
