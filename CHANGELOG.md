@@ -1,3 +1,10 @@
+## [3.3.2](https://github.com/scribd/terraform-aws-datadog/compare/v3.3.1...v3.3.2) (2024-09-30)
+
+
+### Bug Fixes
+
+* Work around limit in lambda policy size ([201d6c3](https://github.com/scribd/terraform-aws-datadog/commit/201d6c3e560a13d357f999273732907bceec8fc9))
+
 ## [3.3.1](https://github.com/scribd/terraform-aws-datadog/compare/v3.3.0...v3.3.1) (2024-02-19)
 
 
