@@ -37,6 +37,11 @@ variable "cloudwatch_log_groups" {
   type        = list(string)
   default     = []
 }
+variable "log_group_prefixes" {
+  description = "List of CloudWatch Log Group prefixes to create lambda permissions"
+  type        = list(string)
+  default     = []
+}
 variable "enable_datadog_aws_integration" {
   description = "Use datadog provider to give datadog aws account access to our resources"
   type        = bool
