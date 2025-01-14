@@ -14,6 +14,7 @@ resource "aws_s3_bucket_notification" "waf-bucket-notification-dd-log" {
   bucket = var.waf_bucket_id
 
   lambda_function {
+    filter_prefix       = ".gz"
     lambda_function_arn = aws_cloudformation_stack.datadog-forwarder.outputs.DatadogForwarderArn
     events              = ["s3:ObjectCreated:*"]
   }
