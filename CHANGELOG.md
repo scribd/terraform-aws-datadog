@@ -1,3 +1,10 @@
+## [3.3.3](https://github.com/scribd/terraform-aws-datadog/compare/v3.3.2...v3.3.3) (2025-01-27)
+
+
+### Bug Fixes
+
+* New release with optional tag var ([df82153](https://github.com/scribd/terraform-aws-datadog/commit/df821536e31d0b758fe7159fb46e00db20311f3b))
+
 ## [3.3.2](https://github.com/scribd/terraform-aws-datadog/compare/v3.3.1...v3.3.2) (2024-09-30)
 
 
