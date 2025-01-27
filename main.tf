@@ -41,7 +41,7 @@ EOF
 
   tags = merge(local.default_tags, {
     description = "This role allows the datadog AWS account to access this account for metrics collection"
-  })
+  }, var.tags)
 }
 
 resource "aws_iam_policy" "datadog-core" {
@@ -49,8 +49,8 @@ resource "aws_iam_policy" "datadog-core" {
   name        = "datadog-core-integration"
   path        = "/"
   description = "This IAM policy allows for core datadog integration permissions"
-
-  policy = <<EOF
+  tags        = merge(local.default_tags, var.tags)
+  policy      = <<EOF
 {
   "Version": "2012-10-17",
   "Statement": [

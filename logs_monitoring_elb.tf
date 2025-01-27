@@ -44,6 +44,8 @@ data "aws_iam_policy_document" "elb_logs" {
 resource "aws_s3_bucket" "elb_logs" {
   count  = var.create_elb_logs_bucket ? 1 : 0
   bucket = local.elb_logs_s3_bucket
+  tags   = merge(local.default_tags, var.tags)
+
 }
 
 resource "aws_s3_bucket_policy" "elb_logs" {

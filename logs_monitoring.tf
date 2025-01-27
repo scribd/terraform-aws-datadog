@@ -10,6 +10,7 @@ resource "aws_cloudformation_stack" "datadog-forwarder" {
     FunctionName      = "${local.stack_prefix}datadog-forwarder"
   }
   template_url = "https://datadog-cloudformation-template.s3.amazonaws.com/aws/forwarder/${var.dd_forwarder_template_version}.yaml"
+  tags         = merge(local.default_tags, var.tags)
 
   lifecycle {
     ignore_changes = [
@@ -21,7 +22,7 @@ resource "aws_cloudformation_stack" "datadog-forwarder" {
 resource "aws_secretsmanager_secret" "datadog_api_key" {
   name_prefix = "${local.stack_prefix}datadog-api-key"
   description = "Datadog API Key"
-  tags        = local.default_tags
+  tags        = merge(local.default_tags, var.tags)
 }
 
 resource "aws_secretsmanager_secret_version" "datadog_api_key" {
