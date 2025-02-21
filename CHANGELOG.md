@@ -1,3 +1,10 @@
+## [3.3.4](https://github.com/scribd/terraform-aws-datadog/compare/v3.3.3...v3.3.4) (2025-02-21)
+
+
+### Bug Fixes
+
+* New release with reduced sid length ([f841dd3](https://github.com/scribd/terraform-aws-datadog/commit/f841dd344cc9f471b7742ce2028b490a06bc9447))
+
 ## [3.3.3](https://github.com/scribd/terraform-aws-datadog/compare/v3.3.2...v3.3.3) (2025-01-27)
 
 
