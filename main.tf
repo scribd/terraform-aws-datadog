@@ -1,5 +1,7 @@
 ## This tf file will setup Datadog AWS integration
 
+data "aws_partition" "current" {}
+
 resource "datadog_integration_aws" "core" {
   count      = var.enable_datadog_aws_integration ? 1 : 0
   account_id = var.aws_account_id
@@ -26,7 +28,7 @@ resource "aws_iam_role" "datadog-integration" {
     {
       "Effect": "Allow",
       "Principal": {
-        "AWS": "arn:aws:iam::464622532012:root"
+        "AWS": "arn:${data.aws_partition.current.partition}:iam::464622532012:root"
       },
       "Action": "sts:AssumeRole",
       "Condition": {

@@ -31,7 +31,7 @@ data "aws_iam_policy_document" "elb_logs" {
       "s3:PutObject"
     ]
     resources = [
-      "arn:aws:s3:::${local.elb_logs_s3_bucket}/*",
+      "arn:${data.aws_partition.current.partition}:s3:::${local.elb_logs_s3_bucket}/*",
     ]
     principals {
       type        = "AWS"

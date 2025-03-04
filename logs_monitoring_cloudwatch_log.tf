@@ -14,6 +14,6 @@ resource "aws_lambda_permission" "allow_cloudwatch_logs_to_call_dd_lambda_handle
   function_name = aws_cloudformation_stack.datadog-forwarder.outputs.DatadogForwarderArn
   principal     = "logs.${var.aws_region}.amazonaws.com"
   source_arn = (length(var.log_group_prefixes) > 0 ?
-    "arn:aws:logs:${var.aws_region}:${var.aws_account_id}:log-group:${each.value}*" :
-  "arn:aws:logs:${var.aws_region}:${var.aws_account_id}:log-group:${each.value}:*")
+    "arn:${data.aws_partition.current.partition}:logs:${var.aws_region}:${var.aws_account_id}:log-group:${each.value}*" :
+    "arn:${data.aws_partition.current.partition}:logs:${var.aws_region}:${var.aws_account_id}:log-group:${each.value}:*")
 }
