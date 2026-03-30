@@ -29,6 +29,7 @@ module "datadog" {
   datadog_api_key       = var.datadog_api_key
   env                   = "prod"
   namespace             = "team_foo"
+  dd_forwarder_memory_size = 1024
 
   cloudtrail_bucket_id  = aws_s3_bucket.org-cloudtrail-bucket.id
   cloudtrail_bucket_arn = aws_s3_bucket.org-cloudtrail-bucket.arn
@@ -59,6 +60,7 @@ module "datadog" {
   enable_datadog_aws_integration = false
   env                            = "prod"
   namespace                      = "project_foo"
+  dd_forwarder_memory_size       = 1024
 
   cloudwatch_log_groups = ["cloudwatch_log_group_1", "cloudwatch_log_group_2"]
 }

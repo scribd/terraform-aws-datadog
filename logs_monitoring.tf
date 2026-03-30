@@ -8,6 +8,7 @@ resource "aws_cloudformation_stack" "datadog-forwarder" {
     DdSite            = var.dd_forwarder_dd_site
     ExcludeAtMatch    = var.log_exclude_at_match
     FunctionName      = "${local.stack_prefix}datadog-forwarder"
+    MemorySize        = var.dd_forwarder_memory_size
   }
   template_url = "https://datadog-cloudformation-template.s3.amazonaws.com/aws/forwarder/${var.dd_forwarder_template_version}.yaml"
   tags         = merge(local.default_tags, var.tags)
