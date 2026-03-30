@@ -74,6 +74,12 @@ variable "dd_forwarder_template_version" {
   default     = "3.100.0"
 }
 
+variable "dd_forwarder_memory_size" {
+  description = "Memory size for the Datadog Forwarder Lambda function"
+  type        = number
+  default     = 1024
+}
+
 variable "dd_forwarder_dd_site" {
   type        = string
   default     = "datadoghq.com"
