@@ -1,3 +1,10 @@
+# [3.4.0](https://github.com/scribd/terraform-aws-datadog/compare/v3.3.4...v3.4.0) (2026-03-30)
+
+
+### Features
+
+* release new version and tag ([5a076a2](https://github.com/scribd/terraform-aws-datadog/commit/5a076a2a6961cbee89990313ceac19f1b7cfad29))
+
 ## [3.3.4](https://github.com/scribd/terraform-aws-datadog/compare/v3.3.3...v3.3.4) (2025-02-21)
 
 
