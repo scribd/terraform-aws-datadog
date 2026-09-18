@@ -24,7 +24,7 @@ There are two main components:
 ```
 module "datadog" {
   source                = "scribd/datadog/aws"
-  version               = "~>3"
+  version               = "~>4"
   aws_account_id        = data.aws_caller_identity.current.account_id
   datadog_api_key       = var.datadog_api_key
   env                   = "prod"
@@ -36,11 +36,16 @@ module "datadog" {
 
   cloudwatch_log_groups = ["cloudwatch_log_group_1", "cloudwatch_log_group_2"]
 
-  account_specific_namespace_rules = {
-    elasticache = true
-    network_elb = true
-    lambda      = true
-  }
+  # Restates Datadog's default exclusions. Omit both metrics_namespace_*
+  # variables to track that default instead of pinning it. `include_only` is an
+  # allowlist and drops everything you leave out — a 3.x
+  # `account_specific_namespace_rules` map does not convert into it; see
+  # MIGRATION.md for the conversion formula.
+  metrics_namespace_exclude_only = [
+    "AWS/SQS",
+    "AWS/ElasticMapReduce",
+    "AWS/Usage",
+  ]
 }
 ```
 
@@ -54,7 +59,7 @@ Creating this module in multiple terraform stacks will cause conflicts.
 ```
 module "datadog" {
   source                         = "scribd/datadog/aws"
-  version                        = "~>3"
+  version                        = "~>4"
   datadog_api_key                = var.datadog_api_key
   create_elb_logs_bucket         = false
   enable_datadog_aws_integration = false
@@ -74,10 +79,23 @@ Cloudwatch log sync are namspaced by module.
 
 ## Module Versions
 
+**Version 4.x.x** and greater require tofu/terraform version >= 1.1.5, AWS provider > 4.0.0 and Datadog provider 4.x.  
 **Version 3.x.x** and greater require terraform version > 0.13.x and AWS provider > 4.0.0.  
 **Version 2.x.x** and greater require terraform version > 0.13.x and AWS provider < 4.0.0.  
 **Version 1.x.x** is the latest version that support terraform version 0.12.x and AWS provider < 4.0.0.  
-When using this module, please be sure to [pin to a compatible version](https://www.terraform.io/docs/configuration/modules.html#module-versions).
+When using this module, please be sure to [pin to a compatible version](https://opentofu.org/docs/language/modules/sources/#selecting-a-revision).
+
+## Upgrading from 3.x to 4.x
+
+Datadog provider 4.0.0 removed `datadog_integration_aws`, so this module now
+declares `datadog_integration_aws_account` instead. There is no state upgrader,
+so **every consumer must migrate state by hand before the next apply** —
+otherwise the plan destroys the integration and recreates it, rotating the
+external ID and breaking metric collection until the IAM trust policy catches
+up.
+
+See [MIGRATION.md](MIGRATION.md) for the procedure, the variable translation and
+the full 3.x-to-4.x namespace name mapping.
 
 ## Examples
 
@@ -108,5 +126,5 @@ In commit message summary, use `feat:` to cut new minor version, use `fix:` to c
 ## Troubleshooting
 
 If you should encounter `Datadog is not authorized to perform action sts:AssumeRole Accounts affected: 1234567890, 1234567891 Regions affected: every region Errors began reporting 18m ago, last seen 5m ago`
-Then perhaps the external ID has changed. Execute `./terraform taint module.datadog.datadog_integration_aws.core[0]` in the root module of the account repo to force a refresh.
+Then perhaps the external ID has changed. Execute `tofu apply -replace='module.datadog.datadog_integration_aws_account.core[0]'` in the root module of the account repo to force a refresh.
 

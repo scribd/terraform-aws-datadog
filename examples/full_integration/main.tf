@@ -26,7 +26,7 @@ data "aws_caller_identity" "current" {}
 
 module "datadog" {
   source          = "scribd/datadog/aws"
-  version         = "~>3"
+  version         = "~>4"
   aws_region      = var.aws_region
   datadog_api_key = var.dd_api_key
   aws_account_id  = data.aws_caller_identity.current.account_id
