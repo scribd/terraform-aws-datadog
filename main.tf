@@ -1,18 +1,70 @@
 ## This tf file will setup Datadog AWS integration
 
-resource "datadog_integration_aws" "core" {
-  count      = var.enable_datadog_aws_integration ? 1 : 0
-  account_id = var.aws_account_id
-  role_name  = "datadog-integration-role"
+resource "datadog_integration_aws_account" "core" {
+  count          = var.enable_datadog_aws_integration ? 1 : 0
+  aws_account_id = var.aws_account_id
+  # Commercial partition only: the trust policy below pins arn:aws: and Datadog's
+  # US integration account, neither of which is valid in aws-cn or aws-us-gov.
+  aws_partition = "aws"
 
-  host_tags = [
+  account_tags = [
     "Namespace:${var.namespace}",
     "env:${var.env}"
   ]
 
-  account_specific_namespace_rules = var.account_specific_namespace_rules
-  excluded_regions                 = var.excluded_regions
-  filter_tags                      = var.filter_tags
+  auth_config {
+    aws_auth_config_role {
+      role_name = "datadog-integration-role"
+    }
+  }
+
+  # The provider rejects include_all and include_only being set together, so the
+  # unused side has to be null rather than false or []. Same for the filters below.
+  aws_regions {
+    include_all  = length(var.included_regions) > 0 ? null : true
+    include_only = length(var.included_regions) > 0 ? var.included_regions : null
+  }
+
+  logs_config {
+    lambda_forwarder {
+      lambdas = var.logs_lambda_forwarder_arns
+      sources = var.logs_sources
+    }
+  }
+
+  metrics_config {
+    enabled                   = var.metrics_enabled
+    automute_enabled          = var.metrics_automute_enabled
+    collect_cloudwatch_alarms = var.metrics_collect_cloudwatch_alarms
+    collect_custom_metrics    = var.metrics_collect_custom_metrics
+
+    namespace_filters {
+      include_only = local.metrics_namespace_include_only
+      exclude_only = local.metrics_namespace_exclude_only
+    }
+
+    # Sent as a full replacement on every apply, so a namespace absent here has
+    # its filters cleared in Datadog.
+    dynamic "tag_filters" {
+      for_each = local.metrics_tag_filters
+      content {
+        namespace = tag_filters.key
+        tags      = tag_filters.value
+      }
+    }
+  }
+
+  resources_config {
+    extended_collection                          = var.resources_extended_collection
+    cloud_security_posture_management_collection = var.resources_cspm_collection
+  }
+
+  traces_config {
+    xray_services {
+      include_all  = var.xray_include_all ? true : null
+      include_only = length(var.xray_services) > 0 ? var.xray_services : null
+    }
+  }
 }
 
 resource "aws_iam_role" "datadog-integration" {
@@ -31,7 +83,7 @@ resource "aws_iam_role" "datadog-integration" {
       "Action": "sts:AssumeRole",
       "Condition": {
         "StringEquals": {
-          "sts:ExternalId": "${datadog_integration_aws.core[0].external_id}"
+          "sts:ExternalId": "${datadog_integration_aws_account.core[0].auth_config.aws_auth_config_role.external_id}"
         }
       }
     }

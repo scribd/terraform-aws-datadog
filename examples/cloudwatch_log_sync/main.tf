@@ -24,7 +24,7 @@ provider "aws" {
 
 module "datadog" {
   source                         = "scribd/datadog/aws"
-  version                        = "~>1"
+  version                        = "~>4"
   datadog_api_key                = var.dd_api_key
   aws_region                     = var.aws_region
   create_elb_logs_bucket         = false
