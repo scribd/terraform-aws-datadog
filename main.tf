@@ -1,18 +1,17 @@
 ## This tf file will setup Datadog AWS integration
 
-resource "datadog_integration_aws" "core" {
-  count      = var.enable_datadog_aws_integration ? 1 : 0
-  account_id = var.aws_account_id
-  role_name  = "datadog-integration-role"
+# Bridge to 4.x: provider 4.x has no schema for this type, so it must leave state
+# while provider 3.x can still read it. The integration itself stays in Datadog.
+removed {
+  from = datadog_integration_aws.core
+  lifecycle {
+    destroy = false
+  }
+}
 
-  host_tags = [
-    "Namespace:${var.namespace}",
-    "env:${var.env}"
-  ]
-
-  account_specific_namespace_rules = var.account_specific_namespace_rules
-  excluded_regions                 = var.excluded_regions
-  filter_tags                      = var.filter_tags
+data "datadog_integration_aws_external_id" "core" {
+  count          = var.enable_datadog_aws_integration ? 1 : 0
+  aws_account_id = var.aws_account_id
 }
 
 resource "aws_iam_role" "datadog-integration" {
@@ -31,7 +30,7 @@ resource "aws_iam_role" "datadog-integration" {
       "Action": "sts:AssumeRole",
       "Condition": {
         "StringEquals": {
-          "sts:ExternalId": "${datadog_integration_aws.core[0].external_id}"
+          "sts:ExternalId": "${data.datadog_integration_aws_external_id.core[0].external_id}"
         }
       }
     }

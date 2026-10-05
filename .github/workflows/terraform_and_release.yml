@@ -4,18 +4,18 @@ on:
   pull_request:
 jobs:
   terraform:
-    name: 'Terraform'
+    name: 'OpenTofu'
     runs-on: ubuntu-latest
     steps:
       - name: 'Checkout'
         uses: actions/checkout@master
 
-      - uses: hashicorp/setup-terraform@v1
+      - uses: opentofu/setup-opentofu@v2
         with:
-          terraform_version: 0.13.x
+          tofu_version: 1.12.6
 
-      - run: terraform fmt
-      - run: terraform init
+      - run: tofu fmt -check -recursive
+      - run: tofu init -backend=false
 
       - name: 'Inject provider configs for validate command'
         run: |
@@ -30,21 +30,21 @@ jobs:
             }
             EOF
 
-      - run: terraform validate
+      - run: tofu validate
 
   release:
     if: github.event_name == 'push'
     needs: terraform
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v6
     - name: Semantic Release
       id: semantic
-      uses: cycjimmy/semantic-release-action@v2
+      uses: cycjimmy/semantic-release-action@v5
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        semantic_version: 19
+        semantic_version: 24
         extra_plugins: |
           @semantic-release/changelog@6
           @semantic-release/git@10

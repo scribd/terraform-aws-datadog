@@ -35,12 +35,6 @@ module "datadog" {
   cloudtrail_bucket_arn = aws_s3_bucket.org-cloudtrail-bucket.arn
 
   cloudwatch_log_groups = ["cloudwatch_log_group_1", "cloudwatch_log_group_2"]
-
-  account_specific_namespace_rules = {
-    elasticache = true
-    network_elb = true
-    lambda      = true
-  }
 }
 ```
 
@@ -74,7 +68,8 @@ Cloudwatch log sync are namspaced by module.
 
 ## Module Versions
 
-**Version 3.x.x** and greater require terraform version > 0.13.x and AWS provider > 4.0.0.  
+**Version 3.5.0** is the bridge to 4.x and requires OpenTofu or Terraform >= 1.10 and Datadog provider >= 3.75, < 4. It stops managing the AWS integration: the v1 `datadog_integration_aws` resource leaves state without being destroyed, so that the 4.x provider, which has no schema for that type, never has to read it, and `account_specific_namespace_rules`, `excluded_regions` and `filter_tags` have no effect. The IAM role's trust policy reads the existing integration's external ID, so the account must already be integrated; new accounts start on 4.x. Pin `~> 3.4.0` to keep 3.4 behaviour. After 3.5.0 has been applied, upgrade to 4.x with `MIGRATION.md` on `master` from step 3: the integration is already out of state, and its external ID comes from the Datadog API. Going back below 3.5.0 requires re-importing `datadog_integration_aws.core` with its external ID.  
+**Versions 3.0.0 to 3.4.x** require terraform version > 0.13.x and AWS provider > 4.0.0.  
 **Version 2.x.x** and greater require terraform version > 0.13.x and AWS provider < 4.0.0.  
 **Version 1.x.x** is the latest version that support terraform version 0.12.x and AWS provider < 4.0.0.  
 When using this module, please be sure to [pin to a compatible version](https://www.terraform.io/docs/configuration/modules.html#module-versions).
@@ -108,5 +103,5 @@ In commit message summary, use `feat:` to cut new minor version, use `fix:` to c
 ## Troubleshooting
 
 If you should encounter `Datadog is not authorized to perform action sts:AssumeRole Accounts affected: 1234567890, 1234567891 Regions affected: every region Errors began reporting 18m ago, last seen 5m ago`
-Then perhaps the external ID has changed. Execute `./terraform taint module.datadog.datadog_integration_aws.core[0]` in the root module of the account repo to force a refresh.
+Then perhaps the external ID has changed. From 3.5.0 the trust policy reads the live external ID on every plan, so re-running `tofu apply` in the account's root module corrects it.
 
