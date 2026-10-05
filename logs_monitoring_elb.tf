@@ -19,23 +19,29 @@ resource "aws_s3_bucket_notification" "elblog-notification-dd-log" {
   }
 }
 
-data "aws_elb_service_account" "main" {}
+data "aws_caller_identity" "current" {}
 
 locals {
   elb_logs_s3_bucket = "${var.elb_logs_bucket_prefix}-${var.namespace}-${var.env}-elb-logs"
 }
 
+# Grants the ELB log delivery service principal write access, replacing the
+# legacy per-region ELB service account (aws_elb_service_account). Delivery is
+# limited to this account's load balancers via the AWSLogs/<account-id>/ path,
+# with or without a user-configured log prefix in front of it.
+# https://docs.aws.amazon.com/elasticloadbalancing/latest/application/enable-access-logging.html
 data "aws_iam_policy_document" "elb_logs" {
   statement {
     actions = [
       "s3:PutObject"
     ]
     resources = [
-      "arn:aws:s3:::${local.elb_logs_s3_bucket}/*",
+      "arn:aws:s3:::${local.elb_logs_s3_bucket}/AWSLogs/${data.aws_caller_identity.current.account_id}/*",
+      "arn:aws:s3:::${local.elb_logs_s3_bucket}/*/AWSLogs/${data.aws_caller_identity.current.account_id}/*",
     ]
     principals {
-      type        = "AWS"
-      identifiers = [data.aws_elb_service_account.main.arn]
+      type        = "Service"
+      identifiers = ["logdelivery.elasticloadbalancing.amazonaws.com"]
     }
     effect = "Allow"
   }
