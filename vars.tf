@@ -53,7 +53,7 @@ variable "env" {
   default     = ""
 }
 variable "account_specific_namespace_rules" {
-  description = "account_specific_namespace_rules argument for datadog_integration_aws resource"
+  description = "Unused since 3.5.0, which stops managing the AWS integration; set metrics_namespace_include_only / metrics_namespace_exclude_only in 4.x instead."
   type        = map(any)
   default     = {}
 }
@@ -87,13 +87,13 @@ variable "dd_forwarder_dd_site" {
 }
 
 variable "excluded_regions" {
-  description = "An array of AWS regions to exclude from metrics collection"
+  description = "Unused since 3.5.0, which stops managing the AWS integration; set included_regions in 4.x instead."
   type        = list(string)
   default     = []
 }
 
 variable "filter_tags" {
-  description = "Array of EC2 tags (in the form key:value) defines a filter that Datadog use when collecting metrics from EC2. Wildcards, such as ? (for single characters) and * (for multiple characters) can also be used. Only hosts that match one of the defined tags will be imported into Datadog. The rest will be ignored."
+  description = "Unused since 3.5.0, which stops managing the AWS integration; set filter_tags in 4.x instead."
   type        = list(string)
   default     = []
 }

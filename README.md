@@ -74,6 +74,7 @@ Cloudwatch log sync are namspaced by module.
 
 ## Module Versions
 
+**Version 3.5.0** is the bridge to 4.x and requires OpenTofu >= 1.7 and Datadog provider >= 3.75, < 4. It removes the v1 `datadog_integration_aws` resource from state without touching the integration in Datadog, so that the 4.x provider, which has no schema for that type, never has to read it. The IAM role's trust policy reads the existing integration's external ID, so the account must already be integrated. Apply 3.5.0 in every stack, then upgrade to 4.x and import the integration as `MIGRATION.md` on `master` describes, skipping its manual `state rm`.  
 **Version 3.x.x** and greater require terraform version > 0.13.x and AWS provider > 4.0.0.  
 **Version 2.x.x** and greater require terraform version > 0.13.x and AWS provider < 4.0.0.  
 **Version 1.x.x** is the latest version that support terraform version 0.12.x and AWS provider < 4.0.0.  
